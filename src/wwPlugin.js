@@ -1,8 +1,8 @@
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import { useSound } from '@vueuse/sound';
 
 export default {
-    soundInstances: reactive({}),
+    soundInstances: {},
     sounds: ref({}),
 
     async onLoad(settings) {
@@ -10,6 +10,8 @@ export default {
     },
 
     async loadSound({ label, src, options = {} }) {
+        const id = wwLib.wwUtils.getUid();
+
         const soundInstance = useSound(src, {
             ...options,
             onplay: () => this.updateSoundProperties(id),
@@ -24,8 +26,6 @@ export default {
         if (!soundInstance) {
             throw new Error(`Failed to load sound: ${id}`);
         }
-
-        const id = wwLib.wwUtils.getUid();
 
         this.soundInstances[id] = soundInstance;
         this.sounds.value[id] = {
@@ -73,54 +73,6 @@ export default {
             console.log('plauSound', id, sound);
 
             play(playOptions);
-        } else {
-            throw new Error(`Sound not found: ${id}`);
-        }
-    },
-
-    async pauseSound(id) {
-        const sound = this.soundInstances[id];
-        if (sound) {
-            const { pause } = sound;
-            pause();
-        } else {
-            throw new Error(`Sound not found: ${id}`);
-        }
-    },
-
-    async stopSound(id) {
-        const sound = this.soundInstances[id];
-        if (sound) {
-            const { stop } = sound;
-            stop();
-        } else {
-            throw new Error(`Sound not found: ${id}`);
-        }
-    },
-
-    async setVolume(id, volume) {
-        const sound = this.soundInstances[id];
-        if (sound) {
-            sound.volume = volume;
-        } else {
-            throw new Error(`Sound not found: ${id}`);
-        }
-    },
-
-    async setPlaybackRate(id, rate) {
-        const sound = this.soundInstances[id];
-        if (sound) {
-            sound.playbackRate = rate;
-        } else {
-            throw new Error(`Sound not found: ${id}`);
-        }
-    },
-
-    async playSprite(id, spriteId) {
-        const sound = this.soundInstances[id];
-        if (sound) {
-            const { play } = sound;
-            play({ id: spriteId });
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
