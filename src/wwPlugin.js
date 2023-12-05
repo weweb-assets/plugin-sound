@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { useSound } from '@vueuse/sound';
+import { Howl } from 'howler';
 
 export default {
     soundInstances: ref({}),
@@ -9,45 +10,57 @@ export default {
         console.log('Sound plugin loaded 🔊', this);
     },
 
-    async loadSound({ label }) {
-        const src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+    // async loadSound({ label }) {
+    //     const src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
 
-        // Minimal options for testing
-        const options = {
+    //     // Minimal options for testing
+    //     const options = {
+    //         volume: 0.5,
+    //         preload: true,
+    //     };
+
+    //     const id = wwLib.wwUtils.getUid();
+
+    //     const soundInstance = useSound(src, {
+    //         ...options,
+    //         onplay: () => this.updateSoundProperties(id),
+    //         onpause: () => this.updateSoundProperties(id),
+    //         onstop: () => this.updateSoundProperties(id),
+    //         onend: () => this.updateSoundProperties(id),
+    //         onload: () => console.log('Sound loaded', id),
+    //         onloaderror: (id, error) => console.error('Load error', id, error),
+    //         onplayerror: (id, error) => console.error('Play error', id, error),
+    //     });
+
+    //     if (!soundInstance) {
+    //         throw new Error(`Failed to load sound: ${id}`);
+    //     }
+
+    //     this.soundInstances.value[id] = soundInstance;
+    //     this.sounds.value[id] = {
+    //         id,
+    //         label,
+    //         isPlaying: ref(false),
+    //         totalTime: ref(0),
+    //         currentTime: ref(0),
+    //         currentTimePercent: ref(0),
+    //     };
+
+    //     console.log('loadSound', label, src, soundInstance);
+
+    //     return id;
+    // },
+
+    async loadSound() {
+        const sound = new Howl({
+            src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
             volume: 0.5,
-            preload: true,
-        };
-
-        const id = wwLib.wwUtils.getUid();
-
-        const soundInstance = useSound(src, {
-            ...options,
-            onplay: () => this.updateSoundProperties(id),
-            onpause: () => this.updateSoundProperties(id),
-            onstop: () => this.updateSoundProperties(id),
-            onend: () => this.updateSoundProperties(id),
-            onload: () => console.log('Sound loaded', id),
+            onload: () => console.log('Sound loaded'),
             onloaderror: (id, error) => console.error('Load error', id, error),
             onplayerror: (id, error) => console.error('Play error', id, error),
         });
 
-        if (!soundInstance) {
-            throw new Error(`Failed to load sound: ${id}`);
-        }
-
-        this.soundInstances.value[id] = soundInstance;
-        this.sounds.value[id] = {
-            id,
-            label,
-            isPlaying: ref(false),
-            totalTime: ref(0),
-            currentTime: ref(0),
-            currentTimePercent: ref(0),
-        };
-
-        console.log('loadSound', label, src, soundInstance);
-
-        return id;
+        sound.play();
     },
 
     async updateSoundProperties(id) {
