@@ -72,7 +72,7 @@ export default {
 
             console.log('plauSound', id, sound);
 
-            play(playOptions);
+            play({ volume: ref(0.5) });
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
