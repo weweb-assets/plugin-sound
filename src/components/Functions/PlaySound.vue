@@ -30,11 +30,8 @@ export default {
             return this.args.options;
         },
         soundInstancesOptions() {
-            console.log(this.plugin);
-            return this.plugin.sounds.map(soundInstance => ({
-                label: soundInstance.label,
-                value: soundInstance.id,
-            }));
+            console.log('FROM UI', this.plugin.sounds, this.plugin.sounds.value);
+            return this.plugin.sounds;
             // return this.plugin.sounds.map(soundInstance => ({
             //     label: soundInstance.label,
             //     value: soundInstance.id,

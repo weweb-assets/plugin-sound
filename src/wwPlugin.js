@@ -34,7 +34,7 @@ export default {
             currentTimePercent: ref(0),
         };
 
-        console.log('Sound loaded', this.soundInstances);
+        console.log('Sound loaded', this.soundInstances, this.sounds);
     },
 
     async updateSoundProperties(id) {
