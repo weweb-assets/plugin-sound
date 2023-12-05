@@ -58,10 +58,10 @@ export default {
         delete this.sounds.value[id];
     },
 
-    async playSound(id, playOptions = {}) {
+    async playSound({ id, playOptions = {} }) {
         const sound = this.soundInstances[id];
 
-        console.log('pauseSound', id, sound);
+        console.log('playSound', id, sound);
 
         if (sound) {
             const { play } = sound;
