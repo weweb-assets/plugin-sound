@@ -6,6 +6,26 @@ export default {
 
     async onLoad(settings) {
         console.log('Sound plugin loaded 🔊', settings);
+
+        this.initializeWatcher();
+    },
+
+    initializeWatcher() {
+        watch(
+            () => this.settings.soundInstance,
+            (newConfig, oldConfig) => {
+                Object.keys(newConfig).forEach(id => {
+                    if (newConfig[id].src !== oldConfig[id]?.src) {
+                        this.loadSound({
+                            id: id,
+                            src: newConfig[id].src,
+                            options: {},
+                        });
+                    }
+                });
+            },
+            { deep: true }
+        );
     },
 
     updateSoundInstanceState(id) {
@@ -18,10 +38,12 @@ export default {
                 isPlayed: soundInstance.isPlaying,
                 totalTime: soundInstance.duration,
                 currentTime: soundInstance.seek(),
-                currentTimePercent: soundInstance.seek() / soundInstance.duration * 100
+                currentTimePercent: (soundInstance.seek() / soundInstance.duration) * 100,
             };
             this.settings.soundInstance[id] = soundInstance.state;
         }
+
+        console.log('Sound instance updated', soundInstance);
     },
 
     async loadSound({ id, src, options }) {
@@ -98,18 +120,3 @@ export default {
         }
     },
 };
-
-created() {
-    watch(() => this.settings.soundInstance, (newConfig, oldConfig) => {
-        Object.keys(newConfig).forEach(id => {
-            if (newConfig[id].src !== oldConfig[id]?.src) {
-                this.loadSound({
-                    id: id,
-                    src: newConfig[id].src,
-                    options: {}
-                });
-            }
-        });
-    }, { deep: true });
-}
-
