@@ -9,7 +9,7 @@ export default {
         console.log('Sound plugin loaded 🔊', this);
     },
 
-    async loadSound({ id, src, options = {} }) {
+    async loadSound({ label, src, options = {} }) {
         const soundInstance = useSound(src, {
             ...options,
             onplay: () => this.updateSoundProperties(id),
@@ -22,9 +22,12 @@ export default {
             throw new Error(`Failed to load sound: ${id}`);
         }
 
+        const id = wwLib.wwUtils.getUid();
+
         this.soundInstances[id] = soundInstance;
         this.sounds.value[id] = {
             id,
+            label,
             isPlaying: ref(false),
             totalTime: ref(0),
             currentTime: ref(0),

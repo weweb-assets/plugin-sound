@@ -11,6 +11,7 @@
             small
             @update:modelValue="setOptions"
         />
+        {{ soundInstancesOptions }}
     </div>
 </template>
 
@@ -27,6 +28,17 @@ export default {
         },
         options() {
             return this.args.options;
+        },
+        soundInstancesOptions() {
+            console.log(this.plugin);
+            return this.plugin.sounds.map(soundInstance => ({
+                label: soundInstance.label,
+                value: soundInstance.id,
+            }));
+            // return this.plugin.sounds.map(soundInstance => ({
+            //     label: soundInstance.label,
+            //     value: soundInstance.id,
+            // }));
         },
     },
     methods: {
