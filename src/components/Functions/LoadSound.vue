@@ -42,7 +42,7 @@ export default {
             return this.args.soundSrc;
         },
         options() {
-            return this.args.soundSrc;
+            return this.args.options;
         },
     },
     methods: {

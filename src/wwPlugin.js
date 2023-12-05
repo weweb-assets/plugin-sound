@@ -7,7 +7,7 @@ export default {
         console.log('Sound plugin loaded 🔊', this);
     },
 
-    async loadSound({ id, src, options }) {
+    async loadSound({ id, src, options = {} }) {
         this.soundInstances[id] = useSound(src, options);
         if (!this.soundInstances[id]) {
             throw new Error(`Failed to load sound: ${id}`);
