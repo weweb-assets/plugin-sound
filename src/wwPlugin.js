@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { useSound } from '@vueuse/sound';
-import { Howl } from 'howler';
+import helix from './helix.mp3';
 
 export default {
     soundInstances: ref({}),
@@ -53,7 +53,7 @@ export default {
 
     async loadSound() {
         const sound = new Howl({
-            src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
+            src: [helix],
             volume: 0.5,
             onload: () => console.log('Sound loaded'),
             onloaderror: (id, error) => console.error('Load error', id, error),
