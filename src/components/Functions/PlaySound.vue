@@ -4,6 +4,7 @@
             label="Sound"
             type="select"
             :model-value="id"
+            placeholder="Select a sound"
             :options="soundInstancesOptions"
             bindable
             @update:modelValue="setid"
