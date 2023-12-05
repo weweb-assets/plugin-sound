@@ -19,7 +19,6 @@
             small
             @update:modelValue="setOptions"
         />
-        {{ soundInstancesOptions }}
     </div>
 </template>
 
