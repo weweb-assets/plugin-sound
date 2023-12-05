@@ -60,6 +60,9 @@ export default {
 
     async playSound(id, playOptions = {}) {
         const sound = this.soundInstances[id];
+
+        console.log('pauseSound', id, sound);
+
         if (sound) {
             const { play } = sound;
             play(playOptions);
