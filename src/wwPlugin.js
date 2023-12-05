@@ -1,49 +1,10 @@
 import { useSound } from '@vueuse/sound';
-import { watch } from 'vue';
 
 export default {
     soundInstances: {},
 
     async onLoad(settings) {
         console.log('Sound plugin loaded 🔊', this);
-
-        this.initializeWatcher();
-    },
-
-    initializeWatcher() {
-        watch(
-            () => this.settings.soundInstance,
-            (newConfig, oldConfig) => {
-                Object.keys(newConfig).forEach(id => {
-                    if (newConfig[id].src !== oldConfig[id]?.src) {
-                        this.loadSound({
-                            id: id,
-                            src: newConfig[id].src,
-                            options: {},
-                        });
-                    }
-                });
-            },
-            { deep: true }
-        );
-    },
-
-    updateSoundInstanceState(id) {
-        const soundInstance = this.soundInstances[id];
-
-        if (soundInstance) {
-            soundInstance.state = {
-                id: id,
-                src: soundInstance.src,
-                isPlayed: soundInstance.isPlaying,
-                totalTime: soundInstance.duration,
-                currentTime: soundInstance.seek(),
-                currentTimePercent: (soundInstance.seek() / soundInstance.duration) * 100,
-            };
-            this.settings.soundInstance[id] = soundInstance.state;
-        }
-
-        console.log('Sound instance updated', soundInstance);
     },
 
     async loadSound({ id, src, options }) {
@@ -51,8 +12,6 @@ export default {
         if (!this.soundInstances[id]) {
             throw new Error(`Failed to load sound: ${id}`);
         }
-
-        this.updateSoundInstanceState(id);
     },
 
     async unloadSound(id) {

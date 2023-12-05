@@ -1,13 +1,18 @@
 <template>
     <div>
-        <wwEditorInputRow label="Sound ID" type="query" v-model="soundId" bindable required placeholder="Sound ID" />
         <wwEditorInputRow
-            label="Sound Source URL"
+            label="Sound ID"
             type="query"
-            v-model="soundSrc"
+            :model-value="soundId"
             bindable
-            required
-            placeholder="Source"
+            @update:modelValue="setSoundId"
+        />
+        <wwEditorInputRow
+            label="Sound Source"
+            type="query"
+            :model-value="soundSrc"
+            bindable
+            @update:modelValue="setSoundSrc"
         />
     </div>
 </template>
@@ -16,33 +21,23 @@
 export default {
     props: {
         plugin: { type: Object, required: true },
+        args: { type: Object, required: true },
     },
-    data() {
-        return {
-            soundId: '',
-            soundSrc: '',
-        };
-    },
-    watch: {
-        soundId(newId) {
-            this.updateSoundConfig(newId, this.soundSrc);
+    emits: ['update:args'],
+    computed: {
+        soundId() {
+            return this.args.soundId;
         },
-        soundSrc(newSrc) {
-            this.updateSoundConfig(this.soundId, newSrc);
+        soundSrc() {
+            return this.args.soundSrc;
         },
     },
     methods: {
-        updateSoundConfig(id, src) {
-            if (id && src) {
-                this.plugin.settings.soundInstance[id] = {
-                    id: id,
-                    src: src,
-                    isPlayed: false,
-                    totalTime: 0,
-                    currentTime: 0,
-                    currentTimePercent: 0,
-                };
-            }
+        setSoundId(newId) {
+            this.$emit('update:args', { ...this.args, soundId: newId });
+        },
+        setSoundSrc(newSrc) {
+            this.$emit('update:args', { ...this.args, soundSrc: newSrc });
         },
     },
 };
