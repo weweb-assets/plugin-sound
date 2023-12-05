@@ -1,7 +1,14 @@
 <template>
     <div>
-        <wwEditorInputRow label="Sound ID" type="text" v-model="soundId" />
-        <wwEditorInputRow label="Sound Source URL" type="text" v-model="soundSrc" />
+        <wwEditorInputRow label="Sound ID" type="query" v-model="soundId" bindable required placeholder="Sound ID" />
+        <wwEditorInputRow
+            label="Sound Source URL"
+            type="query"
+            v-model="soundSrc"
+            bindable
+            required
+            placeholder="Source"
+        />
     </div>
 </template>
 

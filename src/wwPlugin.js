@@ -5,7 +5,7 @@ export default {
     soundInstances: {},
 
     async onLoad(settings) {
-        console.log('Sound plugin loaded 🔊', settings);
+        console.log('Sound plugin loaded 🔊', this);
 
         this.initializeWatcher();
     },
