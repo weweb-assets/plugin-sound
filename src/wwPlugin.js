@@ -1,8 +1,8 @@
-import { ref, watch } from 'vue';
+import { ref, reactive } from 'vue';
 import { useSound } from '@vueuse/sound';
 
 export default {
-    soundInstances: {},
+    soundInstances: reactive({}),
     sounds: ref({}),
 
     async onLoad(settings) {
@@ -21,8 +21,6 @@ export default {
             onplayerror: (id, error) => console.error('Play error', id, error),
         });
 
-        console.log('loadSound', label, src, soundInstance);
-
         if (!soundInstance) {
             throw new Error(`Failed to load sound: ${id}`);
         }
@@ -39,7 +37,7 @@ export default {
             currentTimePercent: ref(0),
         };
 
-        console.log('Sound loaded', this.soundInstances, this.sounds);
+        console.log('loadSound', label, src, soundInstance);
 
         return id;
     },
@@ -48,6 +46,7 @@ export default {
         if (!this.soundInstances[id]) {
             throw new Error(`Sound not found: ${id}`);
         }
+
         const sound = this.soundInstances[id];
         const soundInfo = this.sounds.value[id];
 
@@ -68,10 +67,11 @@ export default {
     async playSound({ id, playOptions = {} }) {
         const sound = this.soundInstances[id];
 
-        console.log('playSound', id, sound);
-
         if (sound) {
             const { play } = sound;
+
+            console.log('plauSound', id, sound);
+
             play(playOptions);
         } else {
             throw new Error(`Sound not found: ${id}`);
