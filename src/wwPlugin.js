@@ -10,6 +10,14 @@ export default {
     },
 
     async loadSound({ label, src, options = {} }) {
+        const src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+
+        // Minimal options for testing
+        const options = {
+            volume: 0.5,
+            preload: true,
+        };
+
         const id = wwLib.wwUtils.getUid();
 
         const soundInstance = useSound(src, {
