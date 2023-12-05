@@ -3,7 +3,7 @@ import { useSound } from '@vueuse/sound';
 
 export default {
     soundInstances: {},
-    sounds: {},
+    sounds: ref({}),
 
     async onLoad(settings) {
         console.log('Sound plugin loaded 🔊', this);
@@ -41,6 +41,7 @@ export default {
         const sound = this.soundInstances[id];
         const soundInfo = this.sounds.value[id];
 
+        soundInfo.soundInfo = sound;
         soundInfo.totalTime.value = sound.duration;
         soundInfo.currentTime.value = sound.currentTime;
         soundInfo.currentTimePercent.value = (sound.currentTime / sound.duration) * 100;
