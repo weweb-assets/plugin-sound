@@ -1,19 +1,7 @@
 <template>
     <div>
-        <wwEditorInputRow
-            label="Sound ID"
-            type="query"
-            :model-value="soundId"
-            bindable
-            @update:modelValue="setSoundId"
-        />
-        <wwEditorInputRow
-            label="Sound Source"
-            type="query"
-            :model-value="soundSrc"
-            bindable
-            @update:modelValue="setSoundSrc"
-        />
+        <wwEditorInputRow label="Sound ID" type="query" :model-value="id" bindable @update:modelValue="setid" />
+        <wwEditorInputRow label="Sound Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
         <wwEditorInputRow
             required
             :model-value="options"
@@ -35,22 +23,22 @@ export default {
     },
     emits: ['update:args'],
     computed: {
-        soundId() {
-            return this.args.soundId;
+        id() {
+            return this.args.id;
         },
-        soundSrc() {
-            return this.args.soundSrc;
+        src() {
+            return this.args.src;
         },
         options() {
             return this.args.options;
         },
     },
     methods: {
-        setSoundId(soundId) {
-            this.$emit('update:args', { ...this.args, soundId });
+        setid(id) {
+            this.$emit('update:args', { ...this.args, id });
         },
-        setSoundSrc(soundSrc) {
-            this.$emit('update:args', { ...this.args, soundSrc });
+        setsrc(src) {
+            this.$emit('update:args', { ...this.args, src });
         },
         setOptions(options) {
             this.$emit('update:args', { ...this.args, options });
