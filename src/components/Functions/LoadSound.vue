@@ -14,6 +14,16 @@
             bindable
             @update:modelValue="setSoundSrc"
         />
+        <wwEditorInputRow
+            required
+            :model-value="options"
+            type="object"
+            label="Options"
+            placeholder="Enter sound options"
+            bindable
+            small
+            @update:modelValue="setOptions"
+        />
     </div>
 </template>
 
@@ -31,13 +41,19 @@ export default {
         soundSrc() {
             return this.args.soundSrc;
         },
+        options() {
+            return this.args.soundSrc;
+        },
     },
     methods: {
-        setSoundId(newId) {
-            this.$emit('update:args', { ...this.args, soundId: newId });
+        setSoundId(soundId) {
+            this.$emit('update:args', { ...this.args, soundId });
         },
-        setSoundSrc(newSrc) {
-            this.$emit('update:args', { ...this.args, soundSrc: newSrc });
+        setSoundSrc(soundSrc) {
+            this.$emit('update:args', { ...this.args, soundSrc });
+        },
+        setOptions(options) {
+            this.$emit('update:args', { ...this.args, options });
         },
     },
 };
