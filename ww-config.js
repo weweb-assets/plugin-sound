@@ -22,5 +22,16 @@ export default {
             },
             /* wwEditor:end */
         },
+        {
+            name: 'Play sound',
+            code: 'playSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/PlaySound.vue'),
+            getIsValid({ soundId, soundSrc }) {
+                return !!soundId;
+            },
+            /* wwEditor:end */
+        },
     ],
 };

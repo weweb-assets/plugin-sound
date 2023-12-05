@@ -1,19 +1,49 @@
+import { ref, watch } from 'vue';
 import { useSound } from '@vueuse/sound';
 
 export default {
     soundInstances: {},
+    sounds: {},
 
     async onLoad(settings) {
         console.log('Sound plugin loaded 🔊', this);
     },
 
     async loadSound({ id, src, options = {} }) {
-        this.soundInstances[id] = useSound(src, options);
-        if (!this.soundInstances[id]) {
+        const soundInstance = useSound(src, {
+            ...options,
+            onplay: () => this.updateSoundProperties(id),
+            onpause: () => this.updateSoundProperties(id),
+            onstop: () => this.updateSoundProperties(id),
+            onend: () => this.updateSoundProperties(id),
+        });
+
+        if (!soundInstance) {
             throw new Error(`Failed to load sound: ${id}`);
         }
 
+        this.soundInstances[id] = soundInstance;
+        this.sounds.value[id] = {
+            id,
+            isPlaying: ref(false),
+            totalTime: ref(0),
+            currentTime: ref(0),
+            currentTimePercent: ref(0),
+        };
+
         console.log('Sound loaded', this.soundInstances);
+    },
+
+    async updateSoundProperties(id) {
+        if (!this.soundInstances[id]) {
+            throw new Error(`Sound not found: ${id}`);
+        }
+        const sound = this.soundInstances[id];
+        const soundInfo = this.sounds.value[id];
+
+        soundInfo.totalTime.value = sound.duration;
+        soundInfo.currentTime.value = sound.currentTime;
+        soundInfo.currentTimePercent.value = (sound.currentTime / sound.duration) * 100;
     },
 
     async unloadSound(id) {
@@ -21,6 +51,7 @@ export default {
             throw new Error(`Sound not found: ${id}`);
         }
         delete this.soundInstances[id];
+        delete this.sounds.value[id];
     },
 
     async playSound(id, playOptions = {}) {
