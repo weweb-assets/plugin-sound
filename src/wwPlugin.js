@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { useSound } from '@vueuse/sound';
 
 export default {
-    soundInstances: {},
+    soundInstances: ref({}),
     sounds: ref({}),
 
     async onLoad(settings) {
@@ -27,7 +27,7 @@ export default {
             throw new Error(`Failed to load sound: ${id}`);
         }
 
-        this.soundInstances[id] = soundInstance;
+        this.soundInstances.value[id] = soundInstance;
         this.sounds.value[id] = {
             id,
             label,
@@ -43,11 +43,11 @@ export default {
     },
 
     async updateSoundProperties(id) {
-        if (!this.soundInstances[id]) {
+        if (!this.soundInstances.value[id]) {
             throw new Error(`Sound not found: ${id}`);
         }
 
-        const sound = this.soundInstances[id];
+        const sound = this.soundInstances.value[id];
         const soundInfo = this.sounds.value[id];
 
         soundInfo.soundInfo = sound;
@@ -57,15 +57,15 @@ export default {
     },
 
     async unloadSound(id) {
-        if (!this.soundInstances[id]) {
+        if (!this.soundInstances.value[id]) {
             throw new Error(`Sound not found: ${id}`);
         }
-        delete this.soundInstances[id];
+        delete this.soundInstances.value[id];
         delete this.sounds.value[id];
     },
 
     async playSound({ id, playOptions = {} }) {
-        const sound = this.soundInstances[id];
+        const sound = this.soundInstances.value[id];
 
         if (sound) {
             const { play } = sound;
