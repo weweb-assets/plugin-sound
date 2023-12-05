@@ -16,6 +16,9 @@ export default {
             onpause: () => this.updateSoundProperties(id),
             onstop: () => this.updateSoundProperties(id),
             onend: () => this.updateSoundProperties(id),
+            onload: () => console.log('Sound loaded', id),
+            onloaderror: (id, error) => console.error('Load error', id, error),
+            onplayerror: (id, error) => console.error('Play error', id, error),
         });
 
         if (!soundInstance) {
