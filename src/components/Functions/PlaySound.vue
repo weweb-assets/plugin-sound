@@ -37,7 +37,7 @@ export default {
             return this.args.options;
         },
         soundInstancesOptions() {
-            return Object.values(this.plugin.sounds.value).map(sound => ({
+            return Object.values(this.plugin.settings.sounds).map(sound => ({
                 label: sound.label,
                 value: sound.id,
             }));

@@ -2,9 +2,6 @@ import { ref, watch } from 'vue';
 import { useSound } from '@vueuse/sound';
 
 export default {
-    soundInstances: {},
-    sounds: ref({}),
-
     async onLoad(settings) {
         console.log('Sound plugin loaded 🔊', this);
     },
@@ -24,8 +21,8 @@ export default {
 
         const id = wwLib.wwUtils.getUid();
 
-        this.soundInstances[id] = soundInstance;
-        this.sounds.value[id] = {
+        this.settings.soundInstances[id] = soundInstance;
+        this.settings.sounds[id] = {
             id,
             label,
             isPlaying: ref(false),
@@ -34,15 +31,15 @@ export default {
             currentTimePercent: ref(0),
         };
 
-        console.log('Sound loaded', this.soundInstances, this.sounds);
+        console.log('Sound loaded', this.settings);
     },
 
     async updateSoundProperties(id) {
-        if (!this.soundInstances[id]) {
+        if (!this.settings.soundInstances[id]) {
             throw new Error(`Sound not found: ${id}`);
         }
-        const sound = this.soundInstances[id];
-        const soundInfo = this.sounds.value[id];
+        const sound = this.settings.soundInstances[id];
+        const soundInfo = this.settings.sounds[id];
 
         soundInfo.soundInfo = sound;
         soundInfo.totalTime.value = sound.duration;
@@ -51,15 +48,15 @@ export default {
     },
 
     async unloadSound(id) {
-        if (!this.soundInstances[id]) {
+        if (!this.settings.soundInstances[id]) {
             throw new Error(`Sound not found: ${id}`);
         }
-        delete this.soundInstances[id];
-        delete this.sounds.value[id];
+        delete this.settings.soundInstances[id];
+        delete this.settings.sounds[id];
     },
 
     async playSound({ id, playOptions = {} }) {
-        const sound = this.soundInstances[id];
+        const sound = this.settings.soundInstances[id];
 
         console.log('playSound', id, sound);
 
@@ -72,7 +69,7 @@ export default {
     },
 
     async pauseSound(id) {
-        const sound = this.soundInstances[id];
+        const sound = this.settings.soundInstances[id];
         if (sound) {
             const { pause } = sound;
             pause();
@@ -82,7 +79,7 @@ export default {
     },
 
     async stopSound(id) {
-        const sound = this.soundInstances[id];
+        const sound = this.settings.soundInstances[id];
         if (sound) {
             const { stop } = sound;
             stop();
@@ -92,7 +89,7 @@ export default {
     },
 
     async setVolume(id, volume) {
-        const sound = this.soundInstances[id];
+        const sound = this.settings.soundInstances[id];
         if (sound) {
             sound.volume = volume;
         } else {
@@ -101,7 +98,7 @@ export default {
     },
 
     async setPlaybackRate(id, rate) {
-        const sound = this.soundInstances[id];
+        const sound = this.settings.soundInstances[id];
         if (sound) {
             sound.playbackRate = rate;
         } else {
@@ -110,7 +107,7 @@ export default {
     },
 
     async playSprite(id, spriteId) {
-        const sound = this.soundInstances[id];
+        const sound = this.settings.soundInstances[id];
         if (sound) {
             const { play } = sound;
             play({ id: spriteId });
