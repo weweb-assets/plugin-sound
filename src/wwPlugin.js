@@ -10,7 +10,7 @@ export default {
     },
 
     async loadSound({ label }) {
-        const src = '/helix.mp3';
+        const src = './helix.mp3';
 
         // Minimal options for testing
         const options = {
