@@ -17,8 +17,8 @@ export default {
             isAsync: true,
             /* wwEditor:start */
             edit: () => import('./src/components/Functions/LoadSound.vue'),
-            getIsValid({ id, src }) {
-                return !!id && !!src;
+            getIsValid({ label, src }) {
+                return !!label && !!src;
             },
             /* wwEditor:end */
         },
