@@ -37,7 +37,7 @@ export default {
             return this.args.options;
         },
         soundInstancesOptions() {
-            return Object.values(this.plugin.settings.sounds).map(sound => ({
+            return Object.values(this.plugin.sounds.value).map(sound => ({
                 label: sound.label,
                 value: sound.id,
             }));
@@ -50,9 +50,6 @@ export default {
         setOptions(options) {
             this.$emit('update:args', { ...this.args, options });
         },
-    },
-    mounted() {
-        console.log('TOTO', this.plugin, this.args);
     },
 };
 </script>
