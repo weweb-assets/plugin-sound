@@ -21,6 +21,8 @@ export default {
             onplayerror: (id, error) => console.error('Play error', id, error),
         });
 
+        console.log('loadSound', label, src, soundInstance);
+
         if (!soundInstance) {
             throw new Error(`Failed to load sound: ${id}`);
         }
