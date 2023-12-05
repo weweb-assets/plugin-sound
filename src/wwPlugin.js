@@ -22,7 +22,7 @@ export default {
             };
             this.settings.soundInstance[id] = soundInstance.state;
         }
-    }
+    },
 
     async loadSound({ id, src, options }) {
         this.soundInstances[id] = useSound(src, options);
@@ -38,7 +38,7 @@ export default {
             throw new Error(`Sound not found: ${id}`);
         }
         delete this.soundInstances[id];
-    }
+    },
 
     async playSound(id, playOptions = {}) {
         const sound = this.soundInstances[id];
