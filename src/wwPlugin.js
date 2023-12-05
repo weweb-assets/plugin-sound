@@ -9,7 +9,7 @@ export default {
         console.log('Sound plugin loaded 🔊', this);
     },
 
-    async loadSound({ label, src, options = {} }) {
+    async loadSound({ label }) {
         const src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
 
         // Minimal options for testing
