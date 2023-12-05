@@ -9,8 +9,7 @@ export default {
             },
         ],
     },
-    variables: [
-        { name: 'Sounds', value: 'sounds', type: 'object', defaultValue: null },
+    variables: [{ name: 'Sounds', value: 'sounds', type: 'object', defaultValue: null }],
     actions: [
         {
             name: 'Load sound',
