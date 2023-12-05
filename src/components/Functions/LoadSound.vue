@@ -1,19 +1,12 @@
 <template>
     <div>
-        <wwEditorInputRow
-            label="Sound label"
-            type="query"
-            :model-value="label"
-            bindable
-            @update:modelValue="setlabel"
-        />
-        <wwEditorInputRow label="Sound source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
+        <wwEditorInputRow label="Label" type="query" :model-value="label" bindable @update:modelValue="setlabel" />
+        <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
         <wwEditorInputRow
             required
             :model-value="options"
             type="object"
             label="Options"
-            placeholder="Enter sound options"
             bindable
             small
             @update:modelValue="setOptions"

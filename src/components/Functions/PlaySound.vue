@@ -1,6 +1,13 @@
 <template>
     <div>
-        <wwEditorInputRow label="Sound ID" type="query" :model-value="id" bindable @update:modelValue="setid" />
+        <wwEditorInputRow
+            label="Sound"
+            type="select"
+            :model-value="id"
+            :options="soundInstancesOptions"
+            bindable
+            @update:modelValue="setid"
+        />
         <wwEditorInputRow
             required
             :model-value="options"
@@ -11,7 +18,6 @@
             small
             @update:modelValue="setOptions"
         />
-        {{ soundInstancesOptions }}
     </div>
 </template>
 
@@ -30,12 +36,10 @@ export default {
             return this.args.options;
         },
         soundInstancesOptions() {
-            console.log('FROM UI', this.plugin.sounds, this.plugin.sounds.value);
-            return this.plugin.sounds;
-            // return this.plugin.sounds.map(soundInstance => ({
-            //     label: soundInstance.label,
-            //     value: soundInstance.id,
-            // }));
+            return Object.values(this.plugin.sounds.value).map(soundInstance => ({
+                label: soundInstance.label,
+                value: soundInstance.id,
+            }));
         },
     },
     methods: {
