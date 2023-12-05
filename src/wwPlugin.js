@@ -12,6 +12,8 @@ export default {
         if (!this.soundInstances[id]) {
             throw new Error(`Failed to load sound: ${id}`);
         }
+
+        console.log('Sound loaded', this.soundInstances);
     },
 
     async unloadSound(id) {
