@@ -35,6 +35,8 @@ export default {
         };
 
         console.log('Sound loaded', this.soundInstances, this.sounds);
+
+        return id;
     },
 
     async updateSoundProperties(id) {
