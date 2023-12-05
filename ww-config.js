@@ -17,8 +17,8 @@ export default {
             isAsync: true,
             /* wwEditor:start */
             edit: () => import('./src/components/Functions/LoadSound.vue'),
-            getIsValid({ soundId, soundSrc }) {
-                return !!soundId && !!soundSrc;
+            getIsValid({ id, src }) {
+                return !!id && !!src;
             },
             /* wwEditor:end */
         },
@@ -28,8 +28,8 @@ export default {
             isAsync: true,
             /* wwEditor:start */
             edit: () => import('./src/components/Functions/PlaySound.vue'),
-            getIsValid({ soundId, soundSrc }) {
-                return !!soundId;
+            getIsValid({ id }) {
+                return !!id;
             },
             /* wwEditor:end */
         },

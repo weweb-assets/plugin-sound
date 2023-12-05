@@ -38,7 +38,7 @@ export default {
         },
     },
     mounted() {
-        console.log(this);
+        console.log('TOTO', this.plugin, this.args);
     },
 };
 </script>
