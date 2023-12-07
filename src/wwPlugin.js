@@ -9,10 +9,7 @@ export default {
         console.log('Sound plugin loaded 🔊', this);
     },
 
-    async loadSound({ label }) {
-        const src = './helix.mp3';
-
-        // Minimal options for testing
+    async loadSound({ label, src }) {
         const options = {
             volume: 0.5,
             preload: true,
