@@ -1,8 +1,6 @@
 import { ref } from 'vue';
 import { useSound } from '@vueuse/sound';
 
-import sound from './helix.mp3';
-
 export default {
     soundInstances: ref({}),
     sounds: ref({}),
@@ -12,23 +10,9 @@ export default {
     },
 
     async loadSound({ label, src }) {
-        const options = {
-            volume: 0.5,
-            preload: true,
-        };
-
         const id = wwLib.wwUtils.getUid();
 
-        const soundInstance = useSound(sound, {
-            ...options,
-            onplay: () => this.updateSoundProperties(id),
-            onpause: () => this.updateSoundProperties(id),
-            onstop: () => this.updateSoundProperties(id),
-            onend: () => this.updateSoundProperties(id),
-            onload: () => console.log('Sound loaded', id),
-            onloaderror: (id, error) => console.error('Load error', id, error),
-            onplayerror: (id, error) => console.error('Play error', id, error),
-        });
+        const soundInstance = useSound(src);
 
         if (!soundInstance) {
             throw new Error(`Failed to load sound: ${id}`);
