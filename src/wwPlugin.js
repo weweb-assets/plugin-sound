@@ -10,6 +10,8 @@ export default {
     },
 
     async loadSound({ label, src }) {
+        const proxyTest = 'https://cors-anywhere.herokuapp.com/';
+
         const options = {
             volume: 0.5,
             preload: true,
@@ -17,7 +19,7 @@ export default {
 
         const id = wwLib.wwUtils.getUid();
 
-        const soundInstance = useSound(src, {
+        const soundInstance = useSound(proxyTest + src, {
             ...options,
             onplay: () => this.updateSoundProperties(id),
             onpause: () => this.updateSoundProperties(id),
