@@ -1,6 +1,8 @@
 import { ref } from 'vue';
 import { useSound } from '@vueuse/sound';
 
+import sound from './helix.mp3';
+
 export default {
     soundInstances: ref({}),
     sounds: ref({}),
@@ -10,8 +12,6 @@ export default {
     },
 
     async loadSound({ label, src }) {
-        const proxyTest = 'https://cors-anywhere.herokuapp.com/';
-
         const options = {
             volume: 0.5,
             preload: true,
@@ -19,7 +19,7 @@ export default {
 
         const id = wwLib.wwUtils.getUid();
 
-        const soundInstance = useSound(proxyTest + src, {
+        const soundInstance = useSound(sound, {
             ...options,
             onplay: () => this.updateSoundProperties(id),
             onpause: () => this.updateSoundProperties(id),
