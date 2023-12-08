@@ -15,27 +15,26 @@ function createSoundManager(pluginId) {
     const sounds = ref({});
 
     const loadSound = ({ id, src }) => {
-        const soundInstance = new Howl({
-            src: [src],
-            onload: () => {
-                soundInstances[id] = soundInstance;
-                sounds.value[id] = {
-                    id,
-                    isPlaying: ref(false),
-                    totalTime: ref(soundInstance.duration()),
-                    currentTime: ref(0),
-                    currentTimePercent: ref(0),
-                };
-
-                updateSoundProperties(id);
-            },
-            onplay: () => updateSoundProperties(id),
-            onend: () => updateSoundProperties(id),
-            onpause: () => updateSoundProperties(id),
-            onstop: () => updateSoundProperties(id),
+        return new Promise((resolve, reject) => {
+            const soundInstance = new Howl({
+                src: [src],
+                onload: () => {
+                    soundInstances[id] = soundInstance;
+                    sounds.value[id] = {
+                        id,
+                        isPlaying: ref(false),
+                        totalTime: ref(soundInstance.duration()),
+                        currentTime: ref(0),
+                        currentTimePercent: ref(0),
+                    };
+                    updateSoundProperties(id);
+                    resolve(id);
+                },
+                onloaderror: (id, error) => {
+                    reject(error);
+                },
+            });
         });
-
-        return id;
     };
 
     const updateSoundProperties = id => {
@@ -55,7 +54,6 @@ function createSoundManager(pluginId) {
 
     const playSound = ({ id, playOptions = {} }) => {
         const sound = soundInstances[id];
-        console.log('playSound', id, sound, soundInstances);
         sound.play(playOptions);
     };
 
