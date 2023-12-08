@@ -12,7 +12,7 @@
             <div class="flex items-center">
                 <wwEditorInputRow
                     label="Volume"
-                    type="range"
+                    type="number"
                     :model-value="volume"
                     bindable
                     @update:modelValue="setVolume"
