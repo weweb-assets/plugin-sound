@@ -30,11 +30,16 @@ function createSoundManager(pluginId) {
                         currentTimePercent: ref(0),
                     };
                     updateSoundProperties(id);
-                    resolve(sounds.value[id]);
+                    resolve({ id, src, totalTime: ref(soundInstance.duration()) });
                 },
                 onloaderror: (id, error) => {
                     reject(error);
                 },
+                onplay: () => updateSoundProperties(id),
+                onpause: () => updateSoundProperties(id),
+                onstop: () => updateSoundProperties(id),
+                onend: () => updateSoundProperties(id),
+                onseek: () => updateSoundProperties(id),
             });
 
             soundInstance.play();
