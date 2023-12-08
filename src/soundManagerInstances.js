@@ -20,35 +20,54 @@ function createSoundManager(pluginId) {
                 src: [src],
                 html5: true,
                 volume: 0.2,
-                onload: () => {
-                    soundInstances[id] = soundInstance;
-                    sounds.value[id] = {
-                        id,
-                        isPlaying: ref(false),
-                        totalTime: ref(soundInstance.duration()),
-                        currentTime: ref(0),
-                        currentTimePercent: ref(0),
-                    };
-                    updateSoundProperties(id);
-                    resolve({ id, src, totalTime: ref(soundInstance.duration()) });
-                },
-                onloaderror: (id, error) => {
-                    reject(error);
-                },
-                onplay: () => updateSoundProperties(id),
-                onpause: () => updateSoundProperties(id),
-                onstop: () => updateSoundProperties(id),
-                onend: () => updateSoundProperties(id),
+                onload: () => setupSoundInstance(id, soundInstance, resolve),
+                onloaderror: (id, error) => reject(error),
+                onplay: () => startInterval(id),
+                onpause: () => clearTimeInterval(id),
+                onstop: () => clearTimeInterval(id),
+                onend: () => clearTimeInterval(id),
                 onseek: () => updateSoundProperties(id),
             });
 
-            soundInstance.play();
+            // soundInstance.play();
         });
+    };
+
+    const setupSoundInstance = (id, soundInstance, resolve) => {
+        soundInstances[id] = soundInstance;
+        sounds.value[id] = createSoundObject(id, soundInstance);
+        updateSoundProperties(id);
+        resolve(id);
+    };
+
+    const createSoundObject = (id, soundInstance) => ({
+        id,
+        isPlaying: ref(false),
+        totalTime: ref(soundInstance.duration()),
+        currentTime: ref(0),
+        currentTimePercent: ref(0),
+    });
+
+    const startInterval = id => {
+        soundInstances[id].intervalId = setInterval(() => updateSoundProperties(id), 333);
+    };
+
+    const clearTimeInterval = id => {
+        const sound = soundInstances[id];
+        if (sound && sound.intervalId) {
+            clearInterval(sound.intervalId);
+            sound.intervalId = null;
+        }
+        updateSoundProperties(id);
     };
 
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
+        assignSoundProperties(soundInfo, sound);
+    };
+
+    const assignSoundProperties = (soundInfo, sound) => {
         soundInfo.isPlaying = sound.playing();
         soundInfo.totalTime = sound.duration();
         soundInfo.currentTime = sound.seek();
@@ -63,30 +82,27 @@ function createSoundManager(pluginId) {
 
     const playSound = ({ id, playOptions = {} }) => {
         const sound = soundInstances[id];
-
-        console.log('playSound', id, sound);
-
         sound.play(playOptions);
     };
 
-    watch(
-        sounds,
-        newSounds => {
-            const rawSounds = Object.keys(newSounds).reduce((acc, key) => {
-                const sound = newSounds[key];
-                acc[key] = {
-                    id: sound.id,
-                    isPlaying: toRaw(sound.isPlaying),
-                    totalTime: toRaw(sound.totalTime),
-                    currentTime: toRaw(sound.currentTime),
-                    currentTimePercent: toRaw(sound.currentTimePercent),
-                };
-                return acc;
-            }, {});
-            wwLib.wwVariable.updateValue(`${pluginId}-sounds`, rawSounds);
-        },
-        { deep: true }
-    );
+    watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
+        deep: true,
+    });
+
+    const convertToRawSounds = newSounds =>
+        Object.keys(newSounds).reduce((acc, key) => {
+            const sound = newSounds[key];
+            acc[key] = convertSoundToRaw(sound);
+            return acc;
+        }, {});
+
+    const convertSoundToRaw = sound => ({
+        id: sound.id,
+        isPlaying: toRaw(sound.isPlaying),
+        totalTime: toRaw(sound.totalTime),
+        currentTime: toRaw(sound.currentTime),
+        currentTimePercent: toRaw(sound.currentTimePercent),
+    });
 
     return { sounds, loadSound, unloadSound, playSound, updateSoundProperties };
 }
