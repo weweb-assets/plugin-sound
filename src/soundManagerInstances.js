@@ -61,13 +61,14 @@ function createSoundManager(pluginId) {
     watch(
         sounds,
         newSounds => {
-            const rawSounds = Object.keys(newSounds).reduce((acc, key) => {
+            const rawSounds = Object.keys(newSounds.value).reduce((acc, key) => {
+                const sound = newSounds.value[key];
                 acc[key] = {
-                    id: newSounds[key].id,
-                    isPlaying: newSounds[key].isPlaying.value,
-                    totalTime: newSounds[key].totalTime.value,
-                    currentTime: newSounds[key].currentTime.value,
-                    currentTimePercent: newSounds[key].currentTimePercent.value,
+                    id: sound.id,
+                    isPlaying: sound.isPlaying.value,
+                    totalTime: sound.totalTime.value,
+                    currentTime: sound.currentTime.value,
+                    currentTimePercent: sound.currentTimePercent.value,
                 };
                 return acc;
             }, {});
