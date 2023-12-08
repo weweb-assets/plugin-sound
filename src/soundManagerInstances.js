@@ -68,10 +68,10 @@ function createSoundManager(pluginId) {
 
                 acc[key] = {
                     id: sound.id,
-                    isPlaying: sound.isPlaying.value,
-                    totalTime: sound.totalTime.value,
-                    currentTime: sound.currentTime.value,
-                    currentTimePercent: sound.currentTimePercent.value,
+                    isPlaying: toRaw(sound.isPlaying),
+                    totalTime: toRaw(sound.totalTime),
+                    currentTime: toRaw(sound.currentTime),
+                    currentTimePercent: toRaw(sound.currentTimePercent),
                 };
                 return acc;
             }, {});
