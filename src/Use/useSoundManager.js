@@ -18,10 +18,13 @@ export function useSoundManager() {
                     currentTime: ref(0),
                     currentTimePercent: ref(0),
                 };
+
+                console.log('sound loaded', id, label, src, sounds);
             },
         });
 
         soundInstances[id] = soundInstance;
+
         return id;
     };
 
