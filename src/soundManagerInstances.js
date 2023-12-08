@@ -78,9 +78,9 @@ function createSoundManager(pluginId) {
         delete sounds.value[id];
     };
 
-    const playSound = ({ id, playOptions = {} }) => {
+    const playSound = ({ id, playOptions }) => {
         const sound = soundInstances[id];
-        sound.play();
+        sound.play(playOptions);
     };
 
     watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
