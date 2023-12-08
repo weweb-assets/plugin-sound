@@ -25,7 +25,6 @@ export function useSoundManager(pluginId) {
             onend: () => updateSoundProperties(id),
             onpause: () => updateSoundProperties(id),
             onstop: () => updateSoundProperties(id),
-            // Add other relevant events here
         });
 
         return id;
