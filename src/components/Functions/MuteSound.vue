@@ -8,6 +8,7 @@
             bindable
             @update:modelValue="setId"
         />
+        <wwEditorInputRow label="Mute" type="onoff" :model-value="mute" bindable @update:modelValue="setMute" />
     </div>
 </template>
 
@@ -37,10 +38,16 @@ export default {
         id() {
             return this.args.id;
         },
+        mute() {
+            return this.args.mute;
+        },
     },
     methods: {
         setId(id) {
             this.$emit('update:args', { ...this.args, id });
+        },
+        setMute(mute) {
+            this.$emit('update:args', { ...this.args, mute });
         },
     },
 };

@@ -31,6 +31,10 @@ export default {
         await this.soundManager.seekTo({ id, position });
     },
 
+    async muteSound({ id, mute }) {
+        await this.soundManager.muteSound(id, mute);
+    },
+
     async setVolume({ id, volume }) {
         await this.soundManager.setVolume({ id, volume });
     },
