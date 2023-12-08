@@ -1,8 +1,6 @@
 import { ref } from 'vue';
 import { useSound } from '@vueuse/sound';
 
-import { Howl } from 'howler';
-
 export default {
     soundInstances: ref({}),
     sounds: ref({}),
@@ -14,31 +12,21 @@ export default {
     async loadSound({ label, src }) {
         const id = wwLib.wwUtils.getUid();
 
-        // const soundInstance = useSound(src);
+        const soundInstance = useSound(src);
 
-        // if (!soundInstance) {
-        //     throw new Error(`Failed to load sound: ${id}`);
-        // }
+        if (!soundInstance) {
+            throw new Error(`Failed to load sound: ${id}`);
+        }
 
-        // this.soundInstances.value[id] = soundInstance;
-        // this.sounds.value[id] = {
-        //     id,
-        //     label,
-        //     isPlaying: ref(false),
-        //     totalTime: ref(0),
-        //     currentTime: ref(0),
-        //     currentTimePercent: ref(0),
-        // };
-
-        const sound = new Howl({
-            src: [src],
-            volume: 0.5,
-            onload: () => console.log('Sound loaded'),
-            onloaderror: (id, error) => console.error('Load error', id, error),
-            onplayerror: (id, error) => console.error('Play error', id, error),
-        });
-
-        sound.play();
+        this.soundInstances.value[id] = soundInstance;
+        this.sounds.value[id] = {
+            id,
+            label,
+            isPlaying: ref(false),
+            totalTime: ref(0),
+            currentTime: ref(0),
+            currentTimePercent: ref(0),
+        };
 
         console.log('loadSound', label, src, soundInstance);
 
