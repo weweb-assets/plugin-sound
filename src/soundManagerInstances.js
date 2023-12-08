@@ -1,4 +1,4 @@
-import { ref, reactive, watch, toRaw } from 'vue';
+import { ref, reactive, watch, toRaw, markRaw } from 'vue';
 import { Howl } from 'howler';
 
 const instances = {};
@@ -28,13 +28,11 @@ function createSoundManager(pluginId) {
                 onend: () => clearTimeInterval(id),
                 onseek: () => updateSoundProperties(id),
             });
-
-            soundInstance.play();
         });
     };
 
     const setupSoundInstance = (id, soundInstance, resolve) => {
-        soundInstances[id] = soundInstance;
+        soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance);
         updateSoundProperties(id);
         resolve(id);
