@@ -21,8 +21,6 @@ export function useSoundManager(pluginId) {
                     currentTimePercent: ref(0),
                 };
 
-                debugger;
-
                 updateSoundProperties(id);
             },
             onplay: () => updateSoundProperties(id),
@@ -37,10 +35,10 @@ export function useSoundManager(pluginId) {
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
-        soundInfo.isPlaying.value = sound.playing();
-        soundInfo.totalTime.value = sound.duration();
-        soundInfo.currentTime.value = sound.seek();
-        soundInfo.currentTimePercent.value = (sound.seek() / sound.duration()) * 100;
+        soundInfo.isPlaying = sound.playing();
+        soundInfo.totalTime = sound.duration();
+        soundInfo.currentTime = sound.seek();
+        soundInfo.currentTimePercent = (sound.seek() / sound.duration()) * 100;
     };
 
     const unloadSound = id => {
