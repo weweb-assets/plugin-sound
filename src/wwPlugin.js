@@ -4,8 +4,9 @@ export default {
     soundManager: null,
 
     async onLoad(settings) {
-        console.log('Sound plugin loaded 🔊', this);
         this.soundManager = useSoundManager();
+
+        console.log('Sound plugin loaded 🔊', this);
     },
 
     async loadSoundInPlugin({ label, src }) {
