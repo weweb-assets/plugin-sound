@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { useSoundManager } from '../../Use/useSoundManager';
+import { useSoundManager, computed } from '../../Use/useSoundManager';
 
 export default {
     props: {
@@ -34,8 +34,18 @@ export default {
     setup(props) {
         const { sounds } = useSoundManager(props.plugin.id);
 
+        const soundInstancesOptions = computed(() =>
+            Object.values(sounds.value).map(sound => ({
+                label: sound.label,
+                value: sound.id,
+            }))
+        );
+
+        console.log('TOTO', sounds, soundInstancesOptions);
+
         return {
             sounds,
+            soundInstancesOptions,
         };
     },
     computed: {
@@ -44,14 +54,6 @@ export default {
         },
         options() {
             return this.args.options;
-        },
-        soundInstancesOptions() {
-            console.log('TOTO', this);
-
-            return Object.values(this.sounds.value).map(sound => ({
-                label: sound.label,
-                value: sound.id,
-            }));
         },
     },
     methods: {
