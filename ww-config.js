@@ -55,5 +55,16 @@ export default {
             },
             /* wwEditor:end */
         },
+        {
+            name: 'Stop sound',
+            code: 'stopSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/StopSound.vue'),
+            getIsValid({ id }) {
+                return !!id;
+            },
+            /* wwEditor:end */
+        },
     ],
 };
