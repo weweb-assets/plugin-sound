@@ -5,25 +5,30 @@ export function useSoundManager() {
     const soundInstances = reactive({});
     const sounds = ref({});
 
-    const loadSound = async ({ label, src }) => {
+    const loadSound = ({ label, src }) => {
         const id = wwLib.wwUtils.getUid();
 
-        const soundInstance = useSound(src);
+        const soundInstance = useSound(src, {
+            onload: () => {
+                soundInstances[id] = soundInstance;
+                sounds.value[id] = {
+                    id,
+                    label,
+                    isPlaying: ref(false),
+                    totalTime: ref(soundInstance.sound.duration()),
+                    currentTime: ref(0),
+                    currentTimePercent: ref(0),
+                };
+                console.log(`Sound ${id} loaded`, { soundInstance, sounds });
+            },
+            onloaderror: (id, error) => {
+                console.error(`Load error for sound ${id}:`, error);
+            },
+        });
+
         if (!soundInstance) {
             throw new Error(`Failed to load sound: ${id}`);
         }
-
-        soundInstances[id] = soundInstance;
-        sounds.value[id] = {
-            id,
-            label,
-            isPlaying: ref(false),
-            totalTime: ref(0),
-            currentTime: ref(0),
-            currentTimePercent: ref(0),
-        };
-
-        console.log('Sound loaded', id, soundInstance);
 
         return id;
     };
