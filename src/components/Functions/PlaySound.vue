@@ -37,6 +37,8 @@ export default {
             return this.args.options;
         },
         soundInstancesOptions() {
+            console.log('TOTO', this.plugin.sounds);
+
             return Object.values(this.plugin.sounds.value).map(sound => ({
                 label: sound.label,
                 value: sound.id,
