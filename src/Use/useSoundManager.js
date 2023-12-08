@@ -52,7 +52,6 @@ export function useSoundManager(pluginId) {
     watch(
         sounds,
         newSounds => {
-            console.log('pluginId', pluginId);
             wwLib.wwVariable.updateValue(`${pluginId}-sounds`, toRaw(newSounds));
         },
         { deep: true }

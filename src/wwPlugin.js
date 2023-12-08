@@ -4,7 +4,7 @@ export default {
     soundManager: null,
 
     async onLoad(settings) {
-        this.soundManager = useSoundManager();
+        this.soundManager = useSoundManager(this.id);
     },
 
     async loadSound({ id, src }) {
