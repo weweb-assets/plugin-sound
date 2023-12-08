@@ -9,7 +9,7 @@ export default {
         console.log('Sound plugin loaded 🔊', this);
     },
 
-    async loadSoundInPlugin({ label, src }) {
+    async loadSound({ label, src }) {
         const id = await this.soundManager.loadSound({ label, src });
         return id;
     },
