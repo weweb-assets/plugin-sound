@@ -18,4 +18,32 @@ export default {
     async playSound({ id, playOptions = {} }) {
         await this.soundManager.playSound({ id, playOptions });
     },
+
+    async pauseSound(id) {
+        await this.soundManager.pauseSound(id);
+    },
+
+    async stopSound(id) {
+        await this.soundManager.stopSound(id);
+    },
+
+    async seekTo({ id, position }) {
+        await this.soundManager.seekTo({ id, position });
+    },
+
+    async setVolume({ id, volume }) {
+        await this.soundManager.setVolume({ id, volume });
+    },
+
+    async fadeSound({ id, fromVolume, toVolume, duration }) {
+        await this.soundManager.fadeSound({ id, fromVolume, toVolume, duration });
+    },
+
+    async setRate({ id, rate }) {
+        await this.soundManager.setRate({ id, rate });
+    },
+
+    async setLoop({ id, loop }) {
+        await this.soundManager.setLoop({ id, loop });
+    },
 };
