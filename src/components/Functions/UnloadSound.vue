@@ -1,46 +1,46 @@
 <template>
     <div>
-        <wwEditorInputRow label="Label" type="query" :model-value="label" bindable @update:modelValue="setlabel" />
-        <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
         <wwEditorInputRow
-            required
-            :model-value="options"
-            type="object"
-            label="Options"
+            label="Sound ID"
+            type="select"
+            :model-value="id"
+            :options="soundOptions"
             bindable
-            small
-            @update:modelValue="setOptions"
+            @update:modelValue="setId"
         />
     </div>
 </template>
 
 <script>
+import { computed } from 'vue';
+import { getSoundManagerInstance } from '../../soundManagerInstances';
+
 export default {
     props: {
         plugin: { type: Object, required: true },
         args: { type: Object, required: true },
     },
     emits: ['update:args'],
+    setup(props) {
+        const { sounds } = getSoundManagerInstance(props.plugin.id);
+
+        const soundOptions = computed(() =>
+            Object.values(sounds.value).map(sound => ({
+                label: sound.id,
+                value: sound.id,
+            }))
+        );
+
+        return { soundOptions };
+    },
     computed: {
-        label() {
-            return this.args.label;
-        },
-        src() {
-            return this.args.src;
-        },
-        options() {
-            return this.args.options;
+        id() {
+            return this.args.id;
         },
     },
     methods: {
-        setlabel(label) {
-            this.$emit('update:args', { ...this.args, label });
-        },
-        setsrc(src) {
-            this.$emit('update:args', { ...this.args, src });
-        },
-        setOptions(options) {
-            this.$emit('update:args', { ...this.args, options });
+        setId(id) {
+            this.$emit('update:args', { ...this.args, id });
         },
     },
 };
