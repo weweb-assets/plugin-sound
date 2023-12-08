@@ -12,7 +12,7 @@
             <div class="flex items-center">
                 <wwEditorInputRow
                     label="Playback Rate"
-                    type="range"
+                    type="number"
                     :model-value="rate"
                     bindable
                     @update:modelValue="setRate"
