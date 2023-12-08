@@ -55,7 +55,7 @@ function createSoundManager(pluginId) {
 
     const playSound = ({ id, playOptions = {} }) => {
         const sound = soundInstances[id];
-        console.log('playSound', id, sound);
+        console.log('playSound', id, sound, soundInstances);
         sound.play(playOptions);
     };
 
