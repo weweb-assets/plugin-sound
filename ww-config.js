@@ -67,7 +67,7 @@ export default {
             /* wwEditor:end */
         },
         {
-            name: 'Seek to position',
+            name: 'Seek to time',
             code: 'seekTo',
             isAsync: true,
             /* wwEditor:start */
