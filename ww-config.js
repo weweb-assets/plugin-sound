@@ -33,5 +33,27 @@ export default {
             },
             /* wwEditor:end */
         },
+        {
+            name: 'Play sound',
+            code: 'playSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/PlaySound.vue'),
+            getIsValid({ id }) {
+                return !!id;
+            },
+            /* wwEditor:end */
+        },
+        {
+            name: 'Pause sound',
+            code: 'pauseSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/PauseSound.vue'),
+            getIsValid({ id }) {
+                return !!id;
+            },
+            /* wwEditor:end */
+        },
     ],
 };
