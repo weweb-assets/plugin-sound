@@ -1,6 +1,6 @@
 <template>
     <div>
-        <wwEditorFormRow>
+        <wwEditorFormRow label="Sound ID">
             <div class="flex items-center">
                 <wwEditorInput
                     label="Sound ID"
