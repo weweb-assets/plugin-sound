@@ -28,7 +28,7 @@ function createSoundManager(pluginId) {
                         currentTimePercent: ref(0),
                     };
                     updateSoundProperties(id);
-                    resolve(id);
+                    resolve(sounds.value[id]);
                 },
                 onloaderror: (id, error) => {
                     reject(error);
