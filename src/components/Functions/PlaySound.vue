@@ -37,12 +37,10 @@ export default {
 
         const soundInstancesOptions = computed(() =>
             Object.values(sounds.value).map(sound => ({
-                label: sound.label,
+                label: sound.id,
                 value: sound.id,
             }))
         );
-
-        console.log('TOTO', sounds, soundInstancesOptions);
 
         return {
             sounds,
