@@ -55,6 +55,7 @@ function createSoundManager(pluginId) {
 
     const playSound = ({ id, playOptions = {} }) => {
         const sound = soundInstances[id];
+        console.log('playSound', id, sound);
         sound.play(playOptions);
     };
 
@@ -63,9 +64,6 @@ function createSoundManager(pluginId) {
         newSounds => {
             const rawSounds = Object.keys(newSounds).reduce((acc, key) => {
                 const sound = newSounds[key];
-
-                console.log('sound', sound);
-
                 acc[key] = {
                     id: sound.id,
                     isPlaying: toRaw(sound.isPlaying),
