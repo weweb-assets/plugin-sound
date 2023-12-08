@@ -28,6 +28,8 @@ export default {
     setup(props) {
         const { sounds } = useSoundManager(props.plugin.id);
 
+        console.log(props.plugin);
+
         const id = computed(() => props.args.id);
 
         const idNotValid = computed(() =>
