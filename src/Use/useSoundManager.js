@@ -7,6 +7,7 @@ export function useSoundManager(pluginId) {
 
     const loadSound = ({ label, src }) => {
         const id = wwLib.wwUtils.getUid();
+
         const soundInstance = new Howl({
             src: [src],
             onload: () => {
@@ -19,6 +20,9 @@ export function useSoundManager(pluginId) {
                     currentTime: ref(0),
                     currentTimePercent: ref(0),
                 };
+
+                debugger;
+
                 updateSoundProperties(id);
             },
             onplay: () => updateSoundProperties(id),
