@@ -1,7 +1,18 @@
 <template>
     <div>
-        <wwEditorInputRow label="Sound ID" type="query" :model-value="id" bindable @update:modelValue="setid" />
-        <div v-if="idNotValid" class="error label-3">Sound ID already exist.</div>
+        <wwEditorFormRow>
+            <div class="flex items-center">
+                <wwEditorInput
+                    label="Sound ID"
+                    placeholder="Enter an unique ID for the sound"
+                    type="query"
+                    :model-value="id"
+                    @update:modelValue="setid"
+                    bindable
+                />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="soundIdHelp" />
+            </div>
+        </wwEditorFormRow>
         <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
         <wwEditorInputRow
             required
@@ -25,6 +36,11 @@ export default {
         args: { type: Object, required: true },
     },
     emits: ['update:args'],
+    data() {
+        return {
+            soundIdHelp: `The sound ID need to be unique for each loaded sound.`,
+        };
+    },
     setup(props) {
         const { sounds } = getSoundManagerInstance(props.plugin.id);
 
