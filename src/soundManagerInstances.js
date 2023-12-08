@@ -80,7 +80,7 @@ function createSoundManager(pluginId) {
 
     const playSound = ({ id, playOptions = {} }) => {
         const sound = soundInstances[id];
-        sound.play(playOptions);
+        sound.play();
     };
 
     watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
