@@ -1,7 +1,16 @@
 import { ref, reactive, watch, toRaw } from 'vue';
 import { Howl } from 'howler';
 
-export function useSoundManager(pluginId) {
+const instances = {};
+
+export function getSoundManagerInstance(pluginId) {
+    if (!instances[pluginId]) {
+        instances[pluginId] = createSoundManager(pluginId);
+    }
+    return instances[pluginId];
+}
+
+function createSoundManager(pluginId) {
     const soundInstances = reactive({});
     const sounds = ref({});
 

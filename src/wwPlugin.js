@@ -1,10 +1,10 @@
-import { useSoundManager } from './Use/useSoundManager';
+import { getSoundManagerInstance } from './soundManagerInstances';
 
 export default {
     soundManager: null,
 
     async onLoad(settings) {
-        this.soundManager = useSoundManager(this.id);
+        this.soundManager = getSoundManagerInstance(this.id);
     },
 
     async loadSound({ id, src }) {

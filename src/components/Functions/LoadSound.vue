@@ -17,7 +17,7 @@
 
 <script>
 import { computed } from 'vue';
-import { useSoundManager } from '../../Use/useSoundManager';
+import { getSoundManagerInstance } from '../../soundManagerInstances';
 
 export default {
     props: {
@@ -26,9 +26,7 @@ export default {
     },
     emits: ['update:args'],
     setup(props) {
-        const { sounds } = useSoundManager(props.plugin.id);
-
-        console.log(props.plugin);
+        const { sounds } = getSoundManagerInstance(props.plugin.id);
 
         const id = computed(() => props.args.id);
 
