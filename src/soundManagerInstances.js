@@ -29,7 +29,7 @@ function createSoundManager(pluginId) {
                 onseek: () => updateSoundProperties(id),
             });
 
-            // soundInstance.play();
+            soundInstance.play();
         });
     };
 
