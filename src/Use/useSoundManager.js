@@ -1,5 +1,5 @@
 import { ref, reactive } from 'vue';
-import { useSound } from '@vueuse/sound';
+import { Howl } from 'howler';
 
 export function useSoundManager() {
     const soundInstances = reactive({});
@@ -7,69 +7,42 @@ export function useSoundManager() {
 
     const loadSound = ({ label, src }) => {
         const id = wwLib.wwUtils.getUid();
-
-        const soundInstance = useSound(src, {
+        const soundInstance = new Howl({
+            src: [src],
             onload: () => {
-                soundInstances[id] = soundInstance;
                 sounds.value[id] = {
                     id,
                     label,
                     isPlaying: ref(false),
-                    totalTime: ref(soundInstance.sound.duration()),
+                    totalTime: ref(soundInstance.duration()),
                     currentTime: ref(0),
                     currentTimePercent: ref(0),
                 };
-                console.log(`Sound ${id} loaded`, { soundInstance, sounds });
-            },
-            onloaderror: (id, error) => {
-                console.error(`Load error for sound ${id}:`, error);
             },
         });
 
-        if (!soundInstance) {
-            throw new Error(`Failed to load sound: ${id}`);
-        }
-
+        soundInstances[id] = soundInstance;
         return id;
     };
 
-    const updateSoundProperties = async id => {
-        if (!soundInstances[id]) {
-            throw new Error(`Sound not found: ${id}`);
-        }
-
+    const updateSoundProperties = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
-
-        soundInfo.soundInfo = sound;
-        soundInfo.totalTime.value = sound.duration;
-        soundInfo.currentTime.value = sound.currentTime;
-        soundInfo.currentTimePercent.value = (sound.currentTime / sound.duration) * 100;
+        soundInfo.totalTime.value = sound.duration();
+        soundInfo.currentTime.value = sound.seek();
+        soundInfo.currentTimePercent.value = (sound.seek() / sound.duration()) * 100;
     };
 
-    const unloadSound = async id => {
-        if (!soundInstances[id]) {
-            throw new Error(`Sound not found: ${id}`);
-        }
+    const unloadSound = id => {
+        soundInstances[id].unload();
         delete soundInstances[id];
         delete sounds.value[id];
     };
 
-    const playSound = async ({ id, playOptions = {} }) => {
+    const playSound = ({ id, playOptions = {} }) => {
         const sound = soundInstances[id];
-        if (sound) {
-            const { play } = sound;
-            play(playOptions);
-        } else {
-            throw new Error(`Sound not found: ${id}`);
-        }
+        sound.play(playOptions);
     };
 
-    return {
-        sounds,
-        loadSound,
-        updateSoundProperties,
-        unloadSound,
-        playSound,
-    };
+    return { sounds, loadSound, unloadSound, playSound };
 }

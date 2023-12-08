@@ -19,7 +19,6 @@
         "prettier": "^2.1.2"
     },
     "dependencies": {
-        "@vueuse/sound": "^2.0.1",
         "howler": "^2.2.4"
     }
 }
