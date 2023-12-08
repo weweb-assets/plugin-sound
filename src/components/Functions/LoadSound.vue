@@ -1,6 +1,7 @@
 <template>
     <div>
-        <wwEditorInputRow label="Label" type="query" :model-value="label" bindable @update:modelValue="setlabel" />
+        <wwEditorInputRow label="Sound ID" type="query" :model-value="id" bindable @update:modelValue="setid" />
+        <div v-if="idNotValid" class="error label-3">Sound ID already exist.</div>
         <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
         <wwEditorInputRow
             required
@@ -15,16 +16,32 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useSoundManager } from '../../Use/useSoundManager';
+
 export default {
     props: {
         plugin: { type: Object, required: true },
         args: { type: Object, required: true },
     },
     emits: ['update:args'],
+    setup(props) {
+        const { sounds } = useSoundManager(props.plugin.id);
+
+        const id = computed(() => props.args.id);
+
+        const idNotValid = computed(() =>
+            Object.values(sounds.value)
+                .map(sound => sound.id)
+                .includes(id.value)
+        );
+
+        return {
+            id,
+            idNotValid,
+        };
+    },
     computed: {
-        label() {
-            return this.args.label;
-        },
         src() {
             return this.args.src;
         },
@@ -33,8 +50,8 @@ export default {
         },
     },
     methods: {
-        setlabel(label) {
-            this.$emit('update:args', { ...this.args, label });
+        setid(id) {
+            this.$emit('update:args', { ...this.args, id });
         },
         setsrc(src) {
             this.$emit('update:args', { ...this.args, src });
@@ -45,3 +62,9 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+.error {
+    color: var(--ww-color-red-500);
+}
+</style>

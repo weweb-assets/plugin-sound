@@ -5,16 +5,13 @@ export function useSoundManager(pluginId) {
     const soundInstances = reactive({});
     const sounds = ref({});
 
-    const loadSound = ({ label, src }) => {
-        const id = wwLib.wwUtils.getUid();
-
+    const loadSound = ({ id, src }) => {
         const soundInstance = new Howl({
             src: [src],
             onload: () => {
                 soundInstances[id] = soundInstance;
                 sounds.value[id] = {
                     id,
-                    label,
                     isPlaying: ref(false),
                     totalTime: ref(soundInstance.duration()),
                     currentTime: ref(0),
