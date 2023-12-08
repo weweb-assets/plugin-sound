@@ -12,13 +12,14 @@ export default {
     async loadSound({ label, src }) {
         const id = wwLib.wwUtils.getUid();
 
-        const soundInstance = useSound(src);
+        // const soundInstance = useSound(src);
+        const [play, exposedData] = useSound(src);
 
         if (!soundInstance) {
             throw new Error(`Failed to load sound: ${id}`);
         }
 
-        this.soundInstances.value[id] = soundInstance;
+        this.soundInstances.value[id] = exposedData;
         this.sounds.value[id] = {
             id,
             label,
@@ -28,7 +29,7 @@ export default {
             currentTimePercent: ref(0),
         };
 
-        console.log('loadSound', label, src, soundInstance);
+        console.log('loadSound', label, src, exposedData);
 
         return id;
     },
