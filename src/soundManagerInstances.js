@@ -16,13 +16,14 @@ function createSoundManager(pluginId) {
 
     const loadSound = ({ id, src }) => {
         return new Promise((resolve, reject) => {
-            soundInstances[id] = new Howl({
+            const soundInstance = new Howl({
                 src: [src],
                 onload: () => {
+                    soundInstances[id] = soundInstance;
                     sounds.value[id] = {
                         id,
                         isPlaying: ref(false),
-                        totalTime: ref(soundInstances[id].duration()),
+                        totalTime: ref(soundInstance.duration()),
                         currentTime: ref(0),
                         currentTimePercent: ref(0),
                     };
@@ -33,6 +34,8 @@ function createSoundManager(pluginId) {
                     reject(error);
                 },
             });
+
+            soundInstance.play();
         });
     };
 
