@@ -8,34 +8,42 @@
             bindable
             @update:modelValue="setId"
         />
-        <wwEditorInputRow
-            label="From Volume"
-            type="range"
-            :model-value="fromVolume"
-            min="0"
-            max="1"
-            step="0.1"
-            bindable
-            @update:modelValue="setFromVolume"
-        />
-        <wwEditorInputRow
-            label="To Volume"
-            type="range"
-            :model-value="toVolume"
-            min="0"
-            max="1"
-            step="0.1"
-            bindable
-            @update:modelValue="setToVolume"
-        />
-        <wwEditorInputRow
-            label="Duration (ms)"
-            type="number"
-            :model-value="duration"
-            min="0"
-            bindable
-            @update:modelValue="setDuration"
-        />
+        <wwEditorFormRow label="From Volume">
+            <div class="flex items-center">
+                <wwEditorInputRow
+                    label="From Volume"
+                    type="number"
+                    :model-value="fromVolume"
+                    bindable
+                    @update:modelValue="setFromVolume"
+                />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="fromFade" />
+            </div>
+        </wwEditorFormRow>
+        <wwEditorFormRow label="To Volume">
+            <div class="flex items-center">
+                <wwEditorInputRow
+                    label="To Volume"
+                    type="number"
+                    :model-value="fromVolume"
+                    bindable
+                    @update:modelValue="setFromVolume"
+                />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="toFade" />
+            </div>
+        </wwEditorFormRow>
+        <wwEditorFormRow label="Duration">
+            <div class="flex items-center">
+                <wwEditorInputRow
+                    label="Duration"
+                    type="number"
+                    :model-value="duration"
+                    bindable
+                    @update:modelValue="setDuration"
+                />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="durationFade" />
+            </div>
+        </wwEditorFormRow>
     </div>
 </template>
 
@@ -60,6 +68,13 @@ export default {
         );
 
         return { soundOptions };
+    },
+    data() {
+        return {
+            fromFade: `The volume where the fade will start. The volume is a number between 0 and 1. 0 is silent, 0.5 is half volume, 1 is full volume.`,
+            toFade: `The volume where the fade will end. The volume is a number between 0 and 1. 0 is silent, 0.5 is half volume, 1 is full volume.`,
+            durationFade: `The time in milliseconds that the fade will take to complete`,
+        };
     },
     computed: {
         id() {

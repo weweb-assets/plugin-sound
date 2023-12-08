@@ -23,6 +23,17 @@ export default {
             /* wwEditor:end */
         },
         {
+            name: 'Unload sound',
+            code: 'unloadSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/UnloadSound.vue'),
+            getIsValid({ id }) {
+                return !!id;
+            },
+            /* wwEditor:end */
+        },
+        {
             name: 'Play sound',
             code: 'playSound',
             isAsync: true,
