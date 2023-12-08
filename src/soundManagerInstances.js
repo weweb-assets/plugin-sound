@@ -61,7 +61,7 @@ function createSoundManager(pluginId) {
     watch(
         sounds,
         newSounds => {
-            console.log('newSounds', newSounds.value);
+            console.log('newSounds', newSounds);
 
             const rawSounds = Object.keys(newSounds.value).reduce((acc, key) => {
                 const sound = newSounds.value[key];
