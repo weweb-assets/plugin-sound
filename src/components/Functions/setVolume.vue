@@ -8,16 +8,18 @@
             bindable
             @update:modelValue="setId"
         />
-        <wwEditorInputRow
-            label="Volume"
-            type="range"
-            :model-value="volume"
-            min="0"
-            max="1"
-            step="0.1"
-            bindable
-            @update:modelValue="setVolume"
-        />
+        <wwEditorFormRow label="Playback Rate">
+            <div class="flex items-center">
+                <wwEditorInputRow
+                    label="Volume"
+                    type="range"
+                    :model-value="volume"
+                    bindable
+                    @update:modelValue="setVolume"
+                />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="volumeHelp" />
+            </div>
+        </wwEditorFormRow>
     </div>
 </template>
 
@@ -42,6 +44,11 @@ export default {
         );
 
         return { soundOptions };
+    },
+    data() {
+        return {
+            volumeHelp: `The volume is a number between 0 and 1. 0 is silent, 0.5 is half volume, 1 is full volume.`,
+        };
     },
     computed: {
         id() {

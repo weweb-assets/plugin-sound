@@ -8,6 +8,7 @@
             bindable
             @update:modelValue="setId"
         />
+        <wwEditorInputRow label="Loop" type="onoff" :model-value="loop" bindable @update:modelValue="setLoop" />
     </div>
 </template>
 
@@ -37,10 +38,16 @@ export default {
         id() {
             return this.args.id;
         },
+        loop() {
+            return this.args.loop;
+        },
     },
     methods: {
         setId(id) {
             this.$emit('update:args', { ...this.args, id });
+        },
+        setLoop(loop) {
+            this.$emit('update:args', { ...this.args, loop });
         },
     },
 };

@@ -12,7 +12,6 @@
             label="Seek Time (seconds)"
             type="number"
             :model-value="time"
-            min="0"
             bindable
             @update:modelValue="setTime"
         />

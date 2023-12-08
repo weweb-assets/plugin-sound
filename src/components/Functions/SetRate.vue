@@ -8,16 +8,18 @@
             bindable
             @update:modelValue="setId"
         />
-        <wwEditorInputRow
-            label="Playback Rate"
-            type="range"
-            :model-value="rate"
-            min="0.5"
-            max="4"
-            step="0.1"
-            bindable
-            @update:modelValue="setRate"
-        />
+        <wwEditorFormRow label="Playback Rate">
+            <div class="flex items-center">
+                <wwEditorInputRow
+                    label="Playback Rate"
+                    type="range"
+                    :model-value="rate"
+                    bindable
+                    @update:modelValue="setRate"
+                />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="playRateHelp" />
+            </div>
+        </wwEditorFormRow>
     </div>
 </template>
 
@@ -42,6 +44,11 @@ export default {
         );
 
         return { soundOptions };
+    },
+    data() {
+        return {
+            playRateHelp: `The playback rate is the speed at which the sound is played. 1 is the normal speed, 0.5 is half the normal speed, 2 is twice the normal speed, etc.`,
+        };
     },
     computed: {
         id() {
