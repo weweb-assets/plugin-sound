@@ -61,7 +61,17 @@ function createSoundManager(pluginId) {
     watch(
         sounds,
         newSounds => {
-            wwLib.wwVariable.updateValue(`${pluginId}-sounds`, toRaw(newSounds));
+            const rawSounds = Object.keys(newSounds).reduce((acc, key) => {
+                acc[key] = {
+                    id: newSounds[key].id,
+                    isPlaying: newSounds[key].isPlaying.value,
+                    totalTime: newSounds[key].totalTime.value,
+                    currentTime: newSounds[key].currentTime.value,
+                    currentTimePercent: newSounds[key].currentTimePercent.value,
+                };
+                return acc;
+            }, {});
+            wwLib.wwVariable.updateValue(`${pluginId}-sounds`, rawSounds);
         },
         { deep: true }
     );
