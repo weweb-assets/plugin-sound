@@ -31,6 +31,76 @@ function createSoundManager(pluginId) {
         });
     };
 
+    const unloadSound = id => {
+        soundInstances[id].unload();
+        delete soundInstances[id];
+        delete sounds.value[id];
+    };
+
+    const playSound = ({ id, playOptions }) => {
+        const sound = soundInstances[id];
+        sound.play(playOptions);
+    };
+
+    const pauseSound = id => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.pause();
+            clearTimeInterval(id);
+        }
+    };
+
+    const stopSound = id => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.stop();
+            clearTimeInterval(id);
+        }
+    };
+
+    const seekTo = (id, time) => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.seek(time);
+            updateSoundProperties(id);
+        }
+    };
+
+    const muteSound = (id, mute) => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.mute(mute);
+        }
+    };
+
+    const setVolume = (id, volume) => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.volume(volume);
+        }
+    };
+
+    const fadeSound = (id, from, to, duration) => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.fade(from, to, duration);
+        }
+    };
+
+    const setRate = (id, rate) => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.rate(rate);
+        }
+    };
+
+    const setLoop = (id, loop) => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.loop(loop);
+        }
+    };
+
     const setupSoundInstance = (id, soundInstance, resolve) => {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance);
@@ -72,21 +142,6 @@ function createSoundManager(pluginId) {
         soundInfo.currentTimePercent = (sound.seek() / sound.duration()) * 100;
     };
 
-    const unloadSound = id => {
-        soundInstances[id].unload();
-        delete soundInstances[id];
-        delete sounds.value[id];
-    };
-
-    const playSound = ({ id, playOptions }) => {
-        const sound = soundInstances[id];
-        sound.play(playOptions);
-    };
-
-    watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
-        deep: true,
-    });
-
     const convertToRawSounds = newSounds =>
         Object.keys(newSounds).reduce((acc, key) => {
             const sound = newSounds[key];
@@ -102,5 +157,23 @@ function createSoundManager(pluginId) {
         currentTimePercent: toRaw(sound.currentTimePercent),
     });
 
-    return { sounds, loadSound, unloadSound, playSound, updateSoundProperties };
+    watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
+        deep: true,
+    });
+
+    return {
+        sounds,
+        loadSound,
+        unloadSound,
+        playSound,
+        pauseSound,
+        stopSound,
+        seekTo,
+        muteSound,
+        setVolume,
+        fadeSound,
+        setRate,
+        setLoop,
+        updateSoundProperties,
+    };
 }
