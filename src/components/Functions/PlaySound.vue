@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { useSoundManager, computed } from '../../Use/useSoundManager';
+import { computed } from 'vue';
+import { useSoundManager } from '../../Use/useSoundManager';
 
 export default {
     props: {
