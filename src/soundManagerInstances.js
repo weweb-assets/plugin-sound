@@ -18,6 +18,8 @@ function createSoundManager(pluginId) {
         return new Promise((resolve, reject) => {
             const soundInstance = new Howl({
                 src: [src],
+                html5: true,
+                volume: 0.2,
                 onload: () => {
                     soundInstances[id] = soundInstance;
                     sounds.value[id] = {
