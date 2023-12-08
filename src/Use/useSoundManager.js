@@ -1,4 +1,4 @@
-import { ref, reactive } from 'vue';
+import { ref, reactive, watch, toRaw } from 'vue';
 import { Howl } from 'howler';
 
 export function useSoundManager() {
@@ -10,6 +10,7 @@ export function useSoundManager() {
         const soundInstance = new Howl({
             src: [src],
             onload: () => {
+                soundInstances[id] = soundInstance;
                 sounds.value[id] = {
                     id,
                     label,
@@ -18,12 +19,14 @@ export function useSoundManager() {
                     currentTime: ref(0),
                     currentTimePercent: ref(0),
                 };
-
-                console.log('sound loaded', id, label, src, sounds);
+                updateSoundProperties(id);
             },
+            onplay: () => updateSoundProperties(id),
+            onend: () => updateSoundProperties(id),
+            onpause: () => updateSoundProperties(id),
+            onstop: () => updateSoundProperties(id),
+            // Add other relevant events here
         });
-
-        soundInstances[id] = soundInstance;
 
         return id;
     };
@@ -31,6 +34,7 @@ export function useSoundManager() {
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
+        soundInfo.isPlaying.value = sound.playing();
         soundInfo.totalTime.value = sound.duration();
         soundInfo.currentTime.value = sound.seek();
         soundInfo.currentTimePercent.value = (sound.seek() / sound.duration()) * 100;
@@ -47,5 +51,13 @@ export function useSoundManager() {
         sound.play(playOptions);
     };
 
-    return { sounds, loadSound, unloadSound, playSound };
+    watch(
+        sounds,
+        newSounds => {
+            wwLib.wwVariable.updateValue(`${pluginId}-sounds`, toRaw(newSounds));
+        },
+        { deep: true }
+    );
+
+    return { sounds, loadSound, unloadSound, playSound, updateSoundProperties };
 }
