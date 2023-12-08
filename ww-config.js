@@ -77,5 +77,16 @@ export default {
             },
             /* wwEditor:end */
         },
+        {
+            name: 'Mute sound',
+            code: 'muteSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/MuteSound.vue'),
+            getIsValid({ id }) {
+                return !!id;
+            },
+            /* wwEditor:end */
+        },
     ],
 };
