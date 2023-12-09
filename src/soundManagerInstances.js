@@ -40,15 +40,15 @@ function createSoundManager(pluginId) {
     async playSound({ id, playOptions = {} }) {
         const sound = this.soundInstances[id];
         if (sound) {
-            if ('mediaSession' in navigator && this.sounds.value[id].metadata) {
-                const { title, artist, album, artwork } = this.sounds.value[id].metadata;
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: title || 'Unknown Title',
-                    artist: artist || 'Unknown Artist',
-                    album: album || 'Unknown Album',
-                    artwork: artwork || []
-                });
-            }
+            // if ('mediaSession' in navigator && this.sounds.value[id].metadata) {
+            //     const { title, artist, album, artwork } = this.sounds.value[id].metadata;
+            //     navigator.mediaSession.metadata = new MediaMetadata({
+            //         title: title || 'Unknown Title',
+            //         artist: artist || 'Unknown Artist',
+            //         album: album || 'Unknown Album',
+            //         artwork: artwork || []
+            //     });
+            // }
 
             sound.play(playOptions);
         } else {
