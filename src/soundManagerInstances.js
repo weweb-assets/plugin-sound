@@ -40,8 +40,6 @@ function createSoundManager(pluginId) {
     async playSound({ id, playOptions = {} }) {
         const sound = this.soundInstances[id];
         if (sound) {
-            sound.play(playOptions);
-
             if ('mediaSession' in navigator && this.sounds.value[id].metadata) {
                 const { title, artist, album, artwork } = this.sounds.value[id].metadata;
                 navigator.mediaSession.metadata = new MediaMetadata({
@@ -51,6 +49,8 @@ function createSoundManager(pluginId) {
                     artwork: artwork || []
                 });
             }
+
+            sound.play(playOptions);
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
