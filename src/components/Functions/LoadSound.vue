@@ -23,6 +23,15 @@
             small
             @update:modelValue="setOptions"
         />
+        <wwEditorInputRow
+            required
+            :model-value="metadata"
+            type="object"
+            label="Metadata"
+            bindable
+            small
+            @update:modelValue="setMetadata"
+        />
     </div>
 </template>
 
@@ -64,6 +73,9 @@ export default {
         options() {
             return this.args.options;
         },
+        metadata() {
+            return this.args.metadata;
+        },
     },
     methods: {
         setid(id) {
@@ -74,6 +86,9 @@ export default {
         },
         setOptions(options) {
             this.$emit('update:args', { ...this.args, options });
+        },
+        setMetadata(metadata) {
+            this.$emit('update:args', { ...this.args, metadata });
         },
     },
 };

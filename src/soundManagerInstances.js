@@ -37,10 +37,25 @@ function createSoundManager(pluginId) {
         delete sounds.value[id];
     };
 
-    const playSound = ({ id, playOptions }) => {
-        const sound = soundInstances[id];
-        sound.play(playOptions);
-    };
+    async playSound({ id, playOptions = {} }) {
+        const sound = this.soundInstances[id];
+        if (sound) {
+            sound.play(playOptions);
+
+            if ('mediaSession' in navigator && this.sounds.value[id].metadata) {
+                const { title, artist, album, artwork } = this.sounds.value[id].metadata;
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: title || 'Unknown Title',
+                    artist: artist || 'Unknown Artist',
+                    album: album || 'Unknown Album',
+                    artwork: artwork || []
+                });
+            }
+        } else {
+            throw new Error(`Sound not found: ${id}`);
+        }
+    }
+
 
     const pauseSound = id => {
         const sound = soundInstances[id];
@@ -114,6 +129,7 @@ function createSoundManager(pluginId) {
         totalTime: ref(soundInstance.duration()),
         currentTime: ref(0),
         currentTimePercent: ref(0),
+        metadata: ref(metadata || {}),
     });
 
     const startInterval = id => {
