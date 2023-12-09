@@ -77,60 +77,60 @@ export default {
             },
             /* wwEditor:end */
         },
+        {
+            name: 'Set volume',
+            code: 'setVolume',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/SetVolume.vue'),
+            getIsValid({ id, volume }) {
+                return !!id && volume != null;
+            },
+            /* wwEditor:end */
+        },
         // {
-        //     name: 'Set volume',
-        //     code: 'setVolume',
+        //     name: 'Mute sound',
+        //     code: 'muteSound',
         //     isAsync: true,
         //     /* wwEditor:start */
-        //     edit: () => import('./src/components/Functions/SetVolume.vue'),
-        //     getIsValid({ id, volume }) {
-        //         return !!id && volume != null;
+        //     edit: () => import('./src/components/Functions/MuteSound.vue'),
+        //     getIsValid({ id }) {
+        //         return !!id;
         //     },
         //     /* wwEditor:end */
         // },
-        {
-            name: 'Mute sound',
-            code: 'muteSound',
-            isAsync: true,
-            /* wwEditor:start */
-            edit: () => import('./src/components/Functions/MuteSound.vue'),
-            getIsValid({ id }) {
-                return !!id;
-            },
-            /* wwEditor:end */
-        },
-        {
-            name: 'Fade sound',
-            code: 'fadeSound',
-            isAsync: true,
-            /* wwEditor:start */
-            edit: () => import('./src/components/Functions/FadeSound.vue'),
-            getIsValid({ id, fromVolume, toVolume, duration }) {
-                return !!id && fromVolume != null && toVolume != null && duration != null;
-            },
-            /* wwEditor:end */
-        },
-        {
-            name: 'Set playback rate',
-            code: 'setRate',
-            isAsync: true,
-            /* wwEditor:start */
-            edit: () => import('./src/components/Functions/SetRate.vue'),
-            getIsValid({ id, rate }) {
-                return !!id && rate != null;
-            },
-            /* wwEditor:end */
-        },
-        {
-            name: 'Set loop',
-            code: 'setLoop',
-            isAsync: true,
-            /* wwEditor:start */
-            edit: () => import('./src/components/Functions/SetLoop.vue'),
-            getIsValid({ id, loop }) {
-                return !!id && loop != null;
-            },
-            /* wwEditor:end */
-        },
+        // {
+        //     name: 'Fade sound',
+        //     code: 'fadeSound',
+        //     isAsync: true,
+        //     /* wwEditor:start */
+        //     edit: () => import('./src/components/Functions/FadeSound.vue'),
+        //     getIsValid({ id, fromVolume, toVolume, duration }) {
+        //         return !!id && fromVolume != null && toVolume != null && duration != null;
+        //     },
+        //     /* wwEditor:end */
+        // },
+        // {
+        //     name: 'Set playback rate',
+        //     code: 'setRate',
+        //     isAsync: true,
+        //     /* wwEditor:start */
+        //     edit: () => import('./src/components/Functions/SetRate.vue'),
+        //     getIsValid({ id, rate }) {
+        //         return !!id && rate != null;
+        //     },
+        //     /* wwEditor:end */
+        // },
+        // {
+        //     name: 'Set loop',
+        //     code: 'setLoop',
+        //     isAsync: true,
+        //     /* wwEditor:start */
+        //     edit: () => import('./src/components/Functions/SetLoop.vue'),
+        //     getIsValid({ id, loop }) {
+        //         return !!id && loop != null;
+        //     },
+        //     /* wwEditor:end */
+        // },
     ],
 };
