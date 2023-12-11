@@ -8,7 +8,7 @@ export default {
     },
 
     async loadSound({ id, src }) {
-        return await this.soundManager.loadSound({ id, src });
+        return await this.soundManager.loadSound({ id, src, metadata });
     },
 
     async unloadSound(id) {
