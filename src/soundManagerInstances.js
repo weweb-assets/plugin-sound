@@ -37,7 +37,7 @@ function createSoundManager(pluginId) {
         delete sounds.value[id];
     };
 
-    async playSound({ id, playOptions = {} }) {
+    async function playSound({ id, playOptions = {} }) {
         const sound = this.soundInstances[id];
         if (sound) {
             if ('mediaSession' in navigator && this.sounds.value[id].metadata) {
@@ -46,7 +46,7 @@ function createSoundManager(pluginId) {
                     title: title || 'Unknown Title',
                     artist: artist || 'Unknown Artist',
                     album: album || 'Unknown Album',
-                    artwork: artwork || []
+                    artwork: artwork || [],
                 });
             }
 
@@ -55,7 +55,6 @@ function createSoundManager(pluginId) {
             throw new Error(`Sound not found: ${id}`);
         }
     }
-
 
     const pauseSound = id => {
         const sound = soundInstances[id];
