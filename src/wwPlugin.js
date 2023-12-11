@@ -7,7 +7,7 @@ export default {
         this.soundManager = getSoundManagerInstance(this.id);
     },
 
-    async loadSound({ id, src }) {
+    async loadSound({ id, src, metadata }) {
         return await this.soundManager.loadSound({ id, src, metadata });
     },
 
