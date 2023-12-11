@@ -123,6 +123,8 @@ function createSoundManager(pluginId) {
     };
 
     const setupSoundInstance = (id, soundInstance, metadata, resolve) => {
+        console.log('sound pre-loaded', metadata);
+
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, metadata);
 
