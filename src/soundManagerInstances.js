@@ -37,7 +37,7 @@ function createSoundManager(pluginId) {
         delete sounds.value[id];
     };
 
-    async function playSound({ id, playOptions = {} }) {
+    const playSound = ({ id, playOptions = {} }) => {
         const sound = this.soundInstances[id];
         if (sound) {
             if ('mediaSession' in navigator && this.sounds.value[id].metadata) {
@@ -54,7 +54,7 @@ function createSoundManager(pluginId) {
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
-    }
+    };
 
     const pauseSound = id => {
         const sound = soundInstances[id];
