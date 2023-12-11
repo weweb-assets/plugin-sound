@@ -79,7 +79,7 @@ export default {
         },
         {
             name: 'Set volume',
-            code: 'setVolume',
+            // code: 'setVolume',
             isAsync: true,
             /* wwEditor:start */
             edit: () => import('./src/components/Functions/SetVolume.vue'),
