@@ -38,10 +38,11 @@ function createSoundManager(pluginId) {
     };
 
     const playSound = ({ id, playOptions = {} }) => {
-        const sound = this.soundInstances[id];
+        const sound = soundInstances[id];
         if (sound) {
-            if ('mediaSession' in navigator && this.sounds.value[id] && this.sounds.value[id].metadata) {
-                const { title, artist, album, artwork } = this.sounds.value[id].metadata;
+            const soundMetadata = sounds.value[id]?.metadata || {};
+            if ('mediaSession' in navigator && soundMetadata) {
+                const { title, artist, album, artwork } = soundMetadata;
                 navigator.mediaSession.metadata = new MediaMetadata({
                     title: title || 'Unknown Title',
                     artist: artist || 'Unknown Artist',
@@ -122,13 +123,13 @@ function createSoundManager(pluginId) {
         resolve(id);
     };
 
-    const createSoundObject = (id, soundInstance) => ({
+    const createSoundObject = (id, soundInstance, metadata = {}) => ({
         id,
         isPlaying: ref(false),
         totalTime: ref(soundInstance.duration()),
         currentTime: ref(0),
         currentTimePercent: ref(0),
-        metadata: ref(metadata || {}),
+        metadata: ref(metadata),
     });
 
     const startInterval = id => {
