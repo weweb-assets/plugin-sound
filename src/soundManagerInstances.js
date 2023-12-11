@@ -39,10 +39,10 @@ function createSoundManager(pluginId) {
 
     const playSound = ({ id, playOptions }) => {
         const sound = soundInstances[id];
-        if (sound) {
-            console.log('sound', sound);
+        const soundInfo = sounds.value[id];
 
-            const soundMetadata = sounds.value[id]?.metadata || {};
+        if (sound && soundInfo) {
+            const soundMetadata = soundInfo.value[id]?.metadata || {};
             if ('mediaSession' in navigator && soundMetadata) {
                 const { title, artist, album, artwork } = soundMetadata;
                 navigator.mediaSession.metadata = new MediaMetadata({
