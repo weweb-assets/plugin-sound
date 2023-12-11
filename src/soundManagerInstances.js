@@ -40,7 +40,7 @@ function createSoundManager(pluginId) {
     const playSound = ({ id, playOptions = {} }) => {
         const sound = this.soundInstances[id];
         if (sound) {
-            if ('mediaSession' in navigator && this.sounds.value[id].metadata) {
+            if ('mediaSession' in navigator && this.sounds.value[id] && this.sounds.value[id].metadata) {
                 const { title, artist, album, artwork } = this.sounds.value[id].metadata;
                 navigator.mediaSession.metadata = new MediaMetadata({
                     title: title || 'Unknown Title',
