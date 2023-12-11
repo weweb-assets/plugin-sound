@@ -42,7 +42,7 @@ function createSoundManager(pluginId) {
         const soundInfo = sounds.value[id];
 
         if (sound && soundInfo) {
-            const soundMetadata = soundInfo.value[id]?.metadata || {};
+            const soundMetadata = soundInfo.metadata || {};
             if ('mediaSession' in navigator && soundMetadata) {
                 const { title, artist, album, artwork } = soundMetadata;
                 navigator.mediaSession.metadata = new MediaMetadata({
