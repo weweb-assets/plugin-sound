@@ -66,17 +66,17 @@ export default {
             },
             /* wwEditor:end */
         },
-        // {
-        //     name: 'Seek to time',
-        //     code: 'seekTo',
-        //     isAsync: true,
-        //     /* wwEditor:start */
-        //     edit: () => import('./src/components/Functions/SeekTo.vue'),
-        //     getIsValid({ id, position }) {
-        //         return !!id && position != null;
-        //     },
-        //     /* wwEditor:end */
-        // },
+        {
+            name: 'Seek to time',
+            code: 'seekTo',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/SeekTo.vue'),
+            getIsValid({ id, position }) {
+                return !!id && position != null;
+            },
+            /* wwEditor:end */
+        },
         // {
         //     name: 'Set volume',
         //     code: 'setVolume',
