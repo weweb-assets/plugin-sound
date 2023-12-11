@@ -14,7 +14,7 @@ function createSoundManager(pluginId) {
     const soundInstances = reactive({});
     const sounds = ref({});
 
-    const loadSound = ({ id, src }) => {
+    const loadSound = ({ id, src, metadata }) => {
         if (!src) {
             return Promise.reject(`Source is undefined for sound ID: ${id}`);
         }
@@ -24,7 +24,7 @@ function createSoundManager(pluginId) {
                 src: [src],
                 html5: true,
                 volume: 0.2,
-                onload: () => setupSoundInstance(id, soundInstance, resolve),
+                onload: () => setupSoundInstance(id, soundInstance, metadata, resolve),
                 onloaderror: (id, error) => reject(error),
                 onplay: () => startInterval(id),
                 onpause: () => clearTimeInterval(id),
@@ -122,9 +122,9 @@ function createSoundManager(pluginId) {
         }
     };
 
-    const setupSoundInstance = (id, soundInstance, resolve) => {
+    const setupSoundInstance = (id, soundInstance, metadata, resolve) => {
         soundInstances[id] = markRaw(soundInstance);
-        sounds.value[id] = createSoundObject(id, soundInstance);
+        sounds.value[id] = createSoundObject(id, soundInstance, metadata);
 
         console.log('sound loaded', sounds.value[id]);
 
@@ -132,13 +132,13 @@ function createSoundManager(pluginId) {
         resolve(id);
     };
 
-    const createSoundObject = (id, soundInstance) => ({
+    const createSoundObject = (id, soundInstance, metadata) => ({
         id,
         isPlaying: ref(false),
         totalTime: ref(soundInstance.duration()),
         currentTime: ref(0),
         currentTimePercent: ref(0),
-        metadata: ref(sounds.value[id].metadata),
+        metadata: ref(metadata),
     });
 
     const startInterval = id => {
