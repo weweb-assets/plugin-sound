@@ -121,16 +121,16 @@ export default {
             },
             /* wwEditor:end */
         },
-        // {
-        //     name: 'Set loop',
-        //     code: 'setLoop',
-        //     isAsync: true,
-        //     /* wwEditor:start */
-        //     edit: () => import('./src/components/Functions/SetLoop.vue'),
-        //     getIsValid({ id, loop }) {
-        //         return !!id && loop != null;
-        //     },
-        //     /* wwEditor:end */
-        // },
+        {
+            name: 'Set loop',
+            code: 'setLoop',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/SetLoop.vue'),
+            getIsValid({ id, loop }) {
+                return !!id && loop != null;
+            },
+            /* wwEditor:end */
+        },
     ],
 };
