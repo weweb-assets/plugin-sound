@@ -99,17 +99,17 @@ export default {
             },
             /* wwEditor:end */
         },
-        // {
-        //     name: 'Fade sound',
-        //     code: 'fadeSound',
-        //     isAsync: true,
-        //     /* wwEditor:start */
-        //     edit: () => import('./src/components/Functions/FadeSound.vue'),
-        //     getIsValid({ id, fromVolume, toVolume, duration }) {
-        //         return !!id && fromVolume != null && toVolume != null && duration != null;
-        //     },
-        //     /* wwEditor:end */
-        // },
+        {
+            name: 'Fade sound',
+            code: 'fadeSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/FadeSound.vue'),
+            getIsValid({ id, fromVolume, toVolume, duration }) {
+                return !!id && fromVolume != null && toVolume != null && duration != null;
+            },
+            /* wwEditor:end */
+        },
         // {
         //     name: 'Set playback rate',
         //     code: 'setRate',
