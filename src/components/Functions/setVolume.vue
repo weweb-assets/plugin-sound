@@ -1,6 +1,6 @@
 <template>
     <div>
-        <wwEditorInputRow
+        <!-- <wwEditorInputRow
             label="Sound ID"
             type="select"
             :model-value="id"
@@ -19,7 +19,7 @@
                 />
                 <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="volumeHelp" />
             </div>
-        </wwEditorFormRow>
+        </wwEditorFormRow> -->
     </div>
 </template>
 
