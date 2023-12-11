@@ -83,9 +83,9 @@ export default {
             isAsync: true,
             /* wwEditor:start */
             edit: () => import('./src/components/Functions/SetVolume.vue'),
-            getIsValid({ id, volume }) {
-                return !!id && volume != null;
-            },
+            // getIsValid({ id, volume }) {
+            //     return !!id && volume != null;
+            // },
             /* wwEditor:end */
         },
         {
