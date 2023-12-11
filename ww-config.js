@@ -110,17 +110,17 @@ export default {
             },
             /* wwEditor:end */
         },
-        // {
-        //     name: 'Set playback rate',
-        //     code: 'setRate',
-        //     isAsync: true,
-        //     /* wwEditor:start */
-        //     edit: () => import('./src/components/Functions/SetRate.vue'),
-        //     getIsValid({ id, rate }) {
-        //         return !!id && rate != null;
-        //     },
-        //     /* wwEditor:end */
-        // },
+        {
+            name: 'Set playback rate',
+            code: 'setRate',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/SetRate.vue'),
+            getIsValid({ id, rate }) {
+                return !!id && rate != null;
+            },
+            /* wwEditor:end */
+        },
         // {
         //     name: 'Set loop',
         //     code: 'setLoop',
