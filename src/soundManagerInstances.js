@@ -37,7 +37,7 @@ function createSoundManager(pluginId) {
         delete sounds.value[id];
     };
 
-    const playSound = ({ id, playOptions = {} }) => {
+    const playSound = ({ id, playOptions }) => {
         const sound = soundInstances[id];
         if (sound) {
             const soundMetadata = sounds.value[id]?.metadata || {};
