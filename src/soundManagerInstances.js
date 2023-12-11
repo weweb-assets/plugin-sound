@@ -158,6 +158,7 @@ function createSoundManager(pluginId) {
         soundInfo.totalTime = sound.duration();
         soundInfo.currentTime = sound.seek();
         soundInfo.currentTimePercent = (sound.seek() / sound.duration()) * 100;
+        soundInfo.metadata = sound.metadata;
     };
 
     const convertToRawSounds = newSounds =>
