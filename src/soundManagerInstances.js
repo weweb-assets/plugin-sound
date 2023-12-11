@@ -15,6 +15,10 @@ function createSoundManager(pluginId) {
     const sounds = ref({});
 
     const loadSound = ({ id, src }) => {
+        if (!src) {
+            return Promise.reject(`Source is undefined for sound ID: ${id}`);
+        }
+
         return new Promise((resolve, reject) => {
             const soundInstance = new Howl({
                 src: [src],
