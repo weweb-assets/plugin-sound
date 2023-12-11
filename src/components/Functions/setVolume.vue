@@ -35,12 +35,14 @@ export default {
     emits: ['update:args'],
     setup(props) {
         const { sounds } = getSoundManagerInstance(props.plugin.id);
+
         const soundOptions = computed(() =>
             Object.values(sounds.value).map(sound => ({
                 label: sound.id,
                 value: sound.id,
             }))
         );
+
         return { soundOptions };
     },
     data() {
