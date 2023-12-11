@@ -77,28 +77,28 @@ export default {
             },
             /* wwEditor:end */
         },
-        {
-            name: 'Set volume',
-            code: 'setVolume',
-            isAsync: true,
-            /* wwEditor:start */
-            edit: () => import('./src/components/Functions/SetVolume.vue'),
-            getIsValid({ id, volume }) {
-                return !!id && volume != null;
-            },
-            /* wwEditor:end */
-        },
         // {
-        //     name: 'Mute sound',
-        //     code: 'muteSound',
+        //     name: 'Set volume',
+        //     code: 'setVolume',
         //     isAsync: true,
         //     /* wwEditor:start */
-        //     edit: () => import('./src/components/Functions/MuteSound.vue'),
-        //     getIsValid({ id }) {
-        //         return !!id;
+        //     edit: () => import('./src/components/Functions/SetVolume.vue'),
+        //     getIsValid({ id, volume }) {
+        //         return !!id && volume != null;
         //     },
         //     /* wwEditor:end */
         // },
+        {
+            name: 'Mute sound',
+            code: 'muteSound',
+            isAsync: true,
+            /* wwEditor:start */
+            edit: () => import('./src/components/Functions/MuteSound.vue'),
+            getIsValid({ id }) {
+                return !!id;
+            },
+            /* wwEditor:end */
+        },
         // {
         //     name: 'Fade sound',
         //     code: 'fadeSound',
