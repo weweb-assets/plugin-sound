@@ -82,7 +82,7 @@ export default {
             code: 'setVolume',
             isAsync: true,
             /* wwEditor:start */
-            edit: () => import('./src/components/Functions/Volume.vue'),
+            edit: () => import('./src/components/Functions/SetVolume.vue'),
             getIsValid({ id, volume }) {
                 return !!id && volume != null;
             },
