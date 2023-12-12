@@ -138,7 +138,7 @@ function createSoundManager(pluginId) {
         totalTime: ref(soundInstance.duration()),
         currentTime: ref(0),
         currentTimePercent: ref(0),
-        metadata: ref(metadata && metadata.value),
+        metadata: metadata && metadata.value,
     });
 
     const startInterval = id => {
