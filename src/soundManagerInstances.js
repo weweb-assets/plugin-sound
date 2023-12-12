@@ -14,7 +14,7 @@ function createSoundManager(pluginId) {
     const soundInstances = reactive({});
     const sounds = ref({});
 
-    const loadSound = (id, src, metadata) => {
+    const loadSound = (id, src, options, metadata) => {
         if (!src) {
             return Promise.reject(`Source is undefined for sound ID: ${id}`);
         }
@@ -23,8 +23,8 @@ function createSoundManager(pluginId) {
             const soundInstance = new Howl({
                 src: [src],
                 html5: true,
-                volume: 0.2,
-                onload: () => setupSoundInstance(id, soundInstance, metadata, resolve),
+                ...options,
+                onload: () => setupSoundInstance(id, soundInstance, options, metadata, resolve),
                 onloaderror: (id, error) => reject(error),
                 onplay: () => startInterval(id),
                 onpause: () => clearTimeInterval(id),
@@ -125,23 +125,22 @@ function createSoundManager(pluginId) {
         }
     };
 
-    const setupSoundInstance = (id, soundInstance, metadata, resolve) => {
+    const setupSoundInstance = (id, soundInstance, options, metadata, resolve) => {
         soundInstances[id] = markRaw(soundInstance);
-        sounds.value[id] = createSoundObject(id, soundInstance, metadata);
-
-        console.log('Setup sound instance', id);
+        sounds.value[id] = createSoundObject(id, soundInstance, options, metadata);
 
         updateSoundProperties(id);
         resolve(id);
     };
 
-    const createSoundObject = (id, soundInstance, metadata) => ({
+    const createSoundObject = (id, soundInstance, options, metadata) => ({
         id,
         isPlaying: ref(false),
         totalTime: ref(soundInstance.duration()),
         currentTime: ref(0),
         currentTimePercent: ref(0),
-        metadata: metadata,
+        metadata,
+        options,
     });
 
     const startInterval = id => {
@@ -165,11 +164,13 @@ function createSoundManager(pluginId) {
     const assignSoundProperties = (soundInfo, sound) => {
         let temp = {};
 
+        temp.id = soundInfo.id;
         temp.isPlaying = sound.playing();
         temp.totalTime = sound.duration();
         temp.currentTime = sound.seek();
         temp.currentTimePercent = (sound.seek() / sound.duration()) * 100;
         temp.metadata = soundInfo.metadata;
+        temp.options = soundInfo.options;
 
         return temp;
     };
@@ -188,6 +189,7 @@ function createSoundManager(pluginId) {
         currentTime: toRaw(sound.currentTime),
         currentTimePercent: toRaw(sound.currentTimePercent),
         metadata: toRaw(sound.metadata),
+        options: toRaw(sound.options),
     });
 
     watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
