@@ -98,6 +98,9 @@ function createSoundManager(pluginId) {
 
     const setVolume = (id, volume) => {
         const sound = soundInstances[id];
+
+        console.log('Set volume', sound, id, volume);
+
         if (sound) {
             sound.volume(volume);
         }
