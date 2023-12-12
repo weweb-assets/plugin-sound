@@ -28,7 +28,7 @@ function createSoundManager(pluginId) {
                     ...options,
                     onload: () => setupSoundInstance(id, soundInstance, options, metadata, resolve),
                     onloaderror: (id, error) => reject(error),
-                    onplay: () => startInterval(id),
+                    onplay: () => handleSoundPlay(id),
                     onpause: () => clearTimeInterval(id),
                     onstop: () => clearTimeInterval(id),
                     onend: () => clearTimeInterval(id),
@@ -39,6 +39,17 @@ function createSoundManager(pluginId) {
                 reject(error);
             }
         });
+    };
+
+    const handleSoundPlay = id => {
+        startInterval(id);
+
+        const sound = soundInstances[id];
+        const soundInfo = sounds.value[id];
+
+        if (sound && soundInfo) {
+            setupMediaSession(sound, soundInfo.metadata);
+        }
     };
 
     const unloadSound = id => {
