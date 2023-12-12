@@ -65,7 +65,7 @@ function createSoundManager(pluginId) {
     };
 
     const updateMediaSessionMetadata = metadata => {
-        if ('mediaSession' in navigator && metadata) {
+        if ('mediaSession' in navigator) {
             const { title, artist, album, artwork } = metadata;
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: title || 'Unknown Title',
