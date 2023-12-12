@@ -24,7 +24,7 @@ function createSoundManager(pluginId) {
                 const soundInstance = new Howl({
                     src: [src],
                     html5: true,
-                    preload: 'metadata',
+                    preload: true,
                     ...options,
                     onload: () => setupSoundInstance(id, soundInstance, options, metadata, resolve),
                     onloaderror: (id, error) => reject(error),
@@ -57,13 +57,13 @@ function createSoundManager(pluginId) {
 
         if (sound && soundInfo) {
             sound.play(playOptions);
-            setupMediaSession(id, soundInfo.metadata);
+            setupMediaSession(sound, soundInfo.metadata);
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
     };
 
-    const setupMediaSession = (id, metadata) => {
+    const setupMediaSession = (sound, metadata) => {
         if ('mediaSession' in navigator) {
             const { title, artist, album, artwork } = metadata;
             navigator.mediaSession.metadata = new MediaMetadata({
@@ -73,10 +73,10 @@ function createSoundManager(pluginId) {
                 artwork: artwork || [],
             });
 
-            navigator.mediaSession.setActionHandler('play', () => playSound(id));
-            navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
-            navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
-            navigator.mediaSession.setActionHandler('previoustrack', () => seekTo(id, 0));
+            navigator.mediaSession.setActionHandler('play', () => sound.play());
+            navigator.mediaSession.setActionHandler('pause', () => sound.pause());
+            navigator.mediaSession.setActionHandler('seekto', details => sound.seek(details.seekTime));
+            navigator.mediaSession.setActionHandler('previoustrack', () => sound.seek(0));
 
             console.log('Media Session API is supported', navigator.mediaSession);
         }
@@ -90,19 +90,19 @@ function createSoundManager(pluginId) {
         }
     };
 
-    const stopSound = id => {
-        const sound = soundInstances[id];
-        if (sound) {
-            sound.stop();
-            clearTimeInterval(id);
-        }
-    };
-
     const seekTo = (id, time) => {
         const sound = soundInstances[id];
         if (sound) {
             sound.seek(time);
             updateSoundProperties(id);
+        }
+    };
+
+    const stopSound = id => {
+        const sound = soundInstances[id];
+        if (sound) {
+            sound.stop();
+            clearTimeInterval(id);
         }
     };
 
