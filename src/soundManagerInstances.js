@@ -155,8 +155,6 @@ function createSoundManager(pluginId) {
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
         sounds.value[id] = assignSoundProperties(sounds.value[id], sound);
-
-        console.log('TOTO', sounds.value[id]);
     };
 
     const assignSoundProperties = (soundInfo, sound) => {
@@ -184,6 +182,7 @@ function createSoundManager(pluginId) {
         totalTime: toRaw(sound.totalTime),
         currentTime: toRaw(sound.currentTime),
         currentTimePercent: toRaw(sound.currentTimePercent),
+        metadata: toRaw(sound.metadata),
     });
 
     watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
