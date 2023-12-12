@@ -44,11 +44,10 @@ function createSoundManager(pluginId) {
     const handleSoundPlay = id => {
         startInterval(id);
 
-        const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
 
-        if (sound && soundInfo) {
-            setupMediaSession(sound, soundInfo.metadata);
+        if (id && soundInfo) {
+            setupMediaSession(id, soundInfo.metadata);
         }
     };
 
@@ -68,13 +67,12 @@ function createSoundManager(pluginId) {
 
         if (sound && soundInfo) {
             sound.play(playOptions);
-            setupMediaSession(sound, soundInfo.metadata);
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
     };
 
-    const setupMediaSession = (sound, metadata) => {
+    const setupMediaSession = (id, metadata) => {
         if ('mediaSession' in navigator) {
             const { title, artist, album, artwork } = metadata;
             navigator.mediaSession.metadata = new MediaMetadata({
@@ -84,10 +82,10 @@ function createSoundManager(pluginId) {
                 artwork: artwork || [],
             });
 
-            navigator.mediaSession.setActionHandler('play', () => sound.play());
-            navigator.mediaSession.setActionHandler('pause', () => sound.pause());
-            navigator.mediaSession.setActionHandler('seekto', details => sound.seek(details.seekTime));
-            navigator.mediaSession.setActionHandler('previoustrack', () => sound.seek(0));
+            navigator.mediaSession.setActionHandler('play', () => playSound(id));
+            navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
+            navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
+            navigator.mediaSession.setActionHandler('previoustrack', () => seekTo(id, 0));
 
             console.log('Media Session API is supported', sound, navigator.mediaSession);
         }
