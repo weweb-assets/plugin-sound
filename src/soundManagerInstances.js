@@ -158,8 +158,6 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
 
-        console.log('properties', sound, soundInfo);
-
         assignSoundProperties(soundInfo, sound);
     };
 
@@ -169,6 +167,8 @@ function createSoundManager(pluginId) {
         soundInfo.currentTime = sound.seek();
         soundInfo.currentTimePercent = (sound.seek() / sound.duration()) * 100;
         soundInfo.metadata = soundInfo.metadata;
+
+        console.log('properties', sound, soundInfo);
     };
 
     const convertToRawSounds = newSounds =>
