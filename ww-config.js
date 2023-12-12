@@ -72,8 +72,8 @@ export default {
             isAsync: true,
             /* wwEditor:start */
             edit: () => import('./src/components/Functions/SeekTo.vue'),
-            getIsValid({ id, position }) {
-                return !!id && position != null;
+            getIsValid({ id, time }) {
+                return !!id && time != null;
             },
             /* wwEditor:end */
         },
