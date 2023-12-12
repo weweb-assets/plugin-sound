@@ -77,6 +77,8 @@ function createSoundManager(pluginId) {
             navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
             navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
             navigator.mediaSession.setActionHandler('previoustrack', () => seekTo(id, 0));
+
+            console.log('Media Session API is supported', navigator.mediaSession);
         }
     };
 
