@@ -57,6 +57,8 @@ function createSoundManager(pluginId) {
                 });
             }
 
+            console.log('Sound', sound, soundInfo);
+
             sound.play(playOptions);
         } else {
             throw new Error(`Sound not found: ${id}`);
