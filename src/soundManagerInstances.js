@@ -126,7 +126,7 @@ function createSoundManager(pluginId) {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, metadata);
 
-        console.log('sound loaded', sounds.value[id], metadata.value);
+        console.log('sound loaded', sounds.value[id], metadata);
 
         updateSoundProperties(id);
         resolve(id);
@@ -138,7 +138,7 @@ function createSoundManager(pluginId) {
         totalTime: ref(soundInstance.duration()),
         currentTime: ref(0),
         currentTimePercent: ref(0),
-        metadata: metadata.value,
+        metadata: metadata,
     });
 
     const startInterval = id => {
