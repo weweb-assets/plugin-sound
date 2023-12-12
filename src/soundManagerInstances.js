@@ -14,7 +14,7 @@ function createSoundManager(pluginId) {
     const soundInstances = reactive({});
     const sounds = ref({});
 
-    const loadSound = ({ id, src, metadata }) => {
+    const loadSound = (id, src, metadata) => {
         if (!src) {
             return Promise.reject(`Source is undefined for sound ID: ${id}`);
         }
@@ -41,7 +41,7 @@ function createSoundManager(pluginId) {
         delete sounds.value[id];
     };
 
-    const playSound = ({ id, playOptions }) => {
+    const playSound = (id, playOptions) => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
 
@@ -57,9 +57,7 @@ function createSoundManager(pluginId) {
                 });
             }
 
-            console.log('Sound', sound, soundInfo);
-
-            sound.play();
+            sound.play(playOptions);
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
