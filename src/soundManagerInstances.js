@@ -57,14 +57,13 @@ function createSoundManager(pluginId) {
 
         if (sound && soundInfo) {
             sound.play(playOptions);
-            updateMediaSessionMetadata(soundInfo.metadata);
-            setupMediaSessionHandlers(id);
+            setupMediaSession(id, soundInfo.metadata);
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
     };
 
-    const updateMediaSessionMetadata = metadata => {
+    const setupMediaSession = (id, metadata) => {
         if ('mediaSession' in navigator) {
             const { title, artist, album, artwork } = metadata;
             navigator.mediaSession.metadata = new MediaMetadata({
@@ -73,11 +72,7 @@ function createSoundManager(pluginId) {
                 album: album || 'Unknown Album',
                 artwork: artwork || [],
             });
-        }
-    };
 
-    const setupMediaSessionHandlers = id => {
-        if ('mediaSession' in navigator) {
             navigator.mediaSession.setActionHandler('play', () => playSound(id));
             navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
             navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
