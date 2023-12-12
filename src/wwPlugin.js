@@ -11,7 +11,7 @@ export default {
         return await this.soundManager.loadSound(id, src, metadata);
     },
 
-    async unloadSound(id) {
+    async unloadSound({ id }) {
         await this.soundManager.unloadSound(id);
     },
 
@@ -19,11 +19,11 @@ export default {
         await this.soundManager.playSound(id, playOptions);
     },
 
-    async pauseSound(id) {
+    async pauseSound({ id }) {
         await this.soundManager.pauseSound(id);
     },
 
-    async stopSound(id) {
+    async stopSound({ id }) {
         await this.soundManager.stopSound(id);
     },
 
