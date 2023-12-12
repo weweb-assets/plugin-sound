@@ -56,9 +56,9 @@ function createSoundManager(pluginId) {
         const soundInfo = sounds.value[id];
 
         if (sound && soundInfo) {
-            updateMediaSessionMetadata(soundInfo.metadata);
-            setupMediaSessionHandlers(sound);
             sound.play(playOptions);
+            updateMediaSessionMetadata(soundInfo.metadata);
+            setupMediaSessionHandlers(id);
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
@@ -76,27 +76,12 @@ function createSoundManager(pluginId) {
         }
     };
 
-    const setupMediaSessionHandlers = sound => {
+    const setupMediaSessionHandlers = id => {
         if ('mediaSession' in navigator) {
-            navigator.mediaSession.setActionHandler('play', () => sound.play());
-            navigator.mediaSession.setActionHandler('pause', () => sound.pause());
-            navigator.mediaSession.setActionHandler('seekbackward', details => {
-                const skipTime = details.seekOffset || 1;
-                const newTime = Math.max(sound.seek() - skipTime, 0);
-                sound.seek(newTime);
-            });
-            navigator.mediaSession.setActionHandler('seekforward', details => {
-                const skipTime = details.seekOffset || 1;
-                const newTime = Math.min(sound.seek() + skipTime, sound.duration());
-                sound.seek(newTime);
-            });
-            navigator.mediaSession.setActionHandler('seekto', details => {
-                const seekTime = details.seekTime;
-                sound.seek(seekTime);
-            });
-            navigator.mediaSession.setActionHandler('previoustrack', () => {
-                sound.seek(0);
-            });
+            navigator.mediaSession.setActionHandler('play', () => playSound(id));
+            navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
+            navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
+            navigator.mediaSession.setActionHandler('previoustrack', () => seekTo(id, 0));
         }
     };
 
