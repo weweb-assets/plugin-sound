@@ -78,7 +78,7 @@ function createSoundManager(pluginId) {
             navigator.mediaSession.setActionHandler('seekto', details => sound.seek(details.seekTime));
             navigator.mediaSession.setActionHandler('previoustrack', () => sound.seek(0));
 
-            console.log('Media Session API is supported', navigator.mediaSession);
+            console.log('Media Session API is supported', sound, navigator.mediaSession);
         }
     };
 
