@@ -24,6 +24,7 @@ function createSoundManager(pluginId) {
                 const soundInstance = new Howl({
                     src: [src],
                     html5: true,
+                    preload: 'metadata',
                     ...options,
                     onload: () => setupSoundInstance(id, soundInstance, options, metadata, resolve),
                     onloaderror: (id, error) => reject(error),
@@ -56,6 +57,7 @@ function createSoundManager(pluginId) {
 
         if (sound && soundInfo) {
             updateMediaSessionMetadata(soundInfo.metadata);
+            setupMediaSessionHandlers(sound);
             sound.play(playOptions);
         } else {
             throw new Error(`Sound not found: ${id}`);
@@ -70,6 +72,30 @@ function createSoundManager(pluginId) {
                 artist: artist || 'Unknown Artist',
                 album: album || 'Unknown Album',
                 artwork: artwork || [],
+            });
+        }
+    };
+
+    const setupMediaSessionHandlers = sound => {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.setActionHandler('play', () => sound.play());
+            navigator.mediaSession.setActionHandler('pause', () => sound.pause());
+            navigator.mediaSession.setActionHandler('seekbackward', details => {
+                const skipTime = details.seekOffset || 1;
+                const newTime = Math.max(sound.seek() - skipTime, 0);
+                sound.seek(newTime);
+            });
+            navigator.mediaSession.setActionHandler('seekforward', details => {
+                const skipTime = details.seekOffset || 1;
+                const newTime = Math.min(sound.seek() + skipTime, sound.duration());
+                sound.seek(newTime);
+            });
+            navigator.mediaSession.setActionHandler('seekto', details => {
+                const seekTime = details.seekTime;
+                sound.seek(seekTime);
+            });
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                sound.seek(0);
             });
         }
     };
