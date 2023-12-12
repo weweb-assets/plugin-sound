@@ -129,6 +129,8 @@ function createSoundManager(pluginId) {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, metadata);
 
+        console.log('Setup sound instance', id);
+
         updateSoundProperties(id);
         resolve(id);
     };
