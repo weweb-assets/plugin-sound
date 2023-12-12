@@ -20,22 +20,31 @@ function createSoundManager(pluginId) {
         }
 
         return new Promise((resolve, reject) => {
-            const soundInstance = new Howl({
-                src: [src],
-                html5: true,
-                ...options,
-                onload: () => setupSoundInstance(id, soundInstance, options, metadata, resolve),
-                onloaderror: (id, error) => reject(error),
-                onplay: () => startInterval(id),
-                onpause: () => clearTimeInterval(id),
-                onstop: () => clearTimeInterval(id),
-                onend: () => clearTimeInterval(id),
-                onseek: () => updateSoundProperties(id),
-            });
+            try {
+                const soundInstance = new Howl({
+                    src: [src],
+                    html5: true,
+                    ...options,
+                    onload: () => setupSoundInstance(id, soundInstance, options, metadata, resolve),
+                    onloaderror: (id, error) => reject(error),
+                    onplay: () => startInterval(id),
+                    onpause: () => clearTimeInterval(id),
+                    onstop: () => clearTimeInterval(id),
+                    onend: () => clearTimeInterval(id),
+                    onseek: () => updateSoundProperties(id),
+                });
+            } catch (error) {
+                throw new Error(`Error loading sound: ${error}`);
+                reject(error);
+            }
         });
     };
 
     const unloadSound = id => {
+        if (!soundInstances[id]) {
+            throw new Error(`Sound not found: ${id}`);
+        }
+
         soundInstances[id].unload();
         delete soundInstances[id];
         delete sounds.value[id];
@@ -46,20 +55,22 @@ function createSoundManager(pluginId) {
         const soundInfo = sounds.value[id];
 
         if (sound && soundInfo) {
-            const soundMetadata = soundInfo.metadata || {};
-            if ('mediaSession' in navigator && soundMetadata) {
-                const { title, artist, album, artwork } = soundMetadata;
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: title || 'Unknown Title',
-                    artist: artist || 'Unknown Artist',
-                    album: album || 'Unknown Album',
-                    artwork: artwork || [],
-                });
-            }
-
+            updateMediaSessionMetadata(soundInfo.metadata);
             sound.play(playOptions);
         } else {
             throw new Error(`Sound not found: ${id}`);
+        }
+    };
+
+    const updateMediaSessionMetadata = metadata => {
+        if ('mediaSession' in navigator && metadata) {
+            const { title, artist, album, artwork } = metadata;
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: title || 'Unknown Title',
+                artist: artist || 'Unknown Artist',
+                album: album || 'Unknown Album',
+                artwork: artwork || [],
+            });
         }
     };
 
@@ -126,7 +137,6 @@ function createSoundManager(pluginId) {
     const setupSoundInstance = (id, soundInstance, options, metadata, resolve) => {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, options, metadata);
-
         updateSoundProperties(id);
         resolve(id);
     };
@@ -156,22 +166,18 @@ function createSoundManager(pluginId) {
 
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
-        sounds.value[id] = assignSoundProperties(sounds.value[id], sound);
+        if (sound) {
+            sounds.value[id] = assignSoundProperties(sounds.value[id], sound);
+        }
     };
 
-    const assignSoundProperties = (soundInfo, sound) => {
-        let temp = {};
-
-        temp.id = soundInfo.id;
-        temp.isPlaying = sound.playing();
-        temp.totalTime = sound.duration();
-        temp.currentTime = sound.seek();
-        temp.currentTimePercent = (sound.seek() / sound.duration()) * 100;
-        temp.metadata = soundInfo.metadata;
-        temp.options = soundInfo.options;
-
-        return temp;
-    };
+    const assignSoundProperties = (soundInfo, sound) => ({
+        ...soundInfo,
+        isPlaying: sound.playing(),
+        totalTime: sound.duration(),
+        currentTime: sound.seek(),
+        currentTimePercent: (sound.seek() / sound.duration()) * 100,
+    });
 
     const convertToRawSounds = newSounds =>
         Object.keys(newSounds).reduce((acc, key) => {
