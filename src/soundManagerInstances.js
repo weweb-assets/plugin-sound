@@ -138,7 +138,7 @@ function createSoundManager(pluginId) {
         totalTime: ref(soundInstance.duration()),
         currentTime: ref(0),
         currentTimePercent: ref(0),
-        metadata: metadata && metadata.value,
+        metadata: ref(metadata && metadata.value),
     });
 
     const startInterval = id => {
@@ -157,6 +157,9 @@ function createSoundManager(pluginId) {
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
+
+        console.log('properties', sound, soundInfo);
+
         assignSoundProperties(soundInfo, sound);
     };
 
