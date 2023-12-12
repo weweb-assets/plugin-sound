@@ -15,8 +15,8 @@ export default {
         await this.soundManager.unloadSound(id);
     },
 
-    async playSound(id, playOptions) {
-        await this.soundManager.playSound({ id, playOptions });
+    async playSound({ id, playOptions }) {
+        await this.soundManager.playSound(id, playOptions);
     },
 
     async pauseSound(id) {
