@@ -126,8 +126,6 @@ function createSoundManager(pluginId) {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, metadata);
 
-        console.log('sound loaded', sounds.value[id], metadata);
-
         updateSoundProperties(id);
         resolve(id);
     };
@@ -157,6 +155,8 @@ function createSoundManager(pluginId) {
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
         sounds.value[id] = assignSoundProperties(sounds.value[id], sound);
+
+        console.log('TOTO', sounds.value[id]);
     };
 
     const assignSoundProperties = (soundInfo, sound) => {
