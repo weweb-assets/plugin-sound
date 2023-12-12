@@ -59,7 +59,7 @@ function createSoundManager(pluginId) {
 
             console.log('Sound', sound, soundInfo);
 
-            sound.play(playOptions);
+            sound.play();
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
