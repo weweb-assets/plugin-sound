@@ -102,9 +102,10 @@ function createSoundManager(pluginId) {
     const seekTo = (id, time) => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
-        const wasPlaying = soundInfo.isPlaying;
 
-        if (sound) {
+        if (sound && soundInfo) {
+            const wasPlaying = soundInfo.isPlaying;
+
             sound.pause();
             sound.seek(time);
 
