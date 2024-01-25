@@ -14,24 +14,30 @@
             </div>
         </wwEditorFormRow>
         <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
-        <wwEditorInputRow
-            required
-            :model-value="options"
-            type="object"
-            label="Options"
-            bindable
-            small
-            @update:modelValue="setOptions"
-        />
-        <wwEditorInputRow
-            required
-            :model-value="metadata"
-            type="object"
-            label="Metadata"
-            bindable
-            small
-            @update:modelValue="setMetadata"
-        />
+        <div class="flex items-center">
+            <wwEditorInputRow
+                required
+                :model-value="options"
+                type="object"
+                label="Options"
+                bindable
+                small
+                @update:modelValue="setOptions"
+            />
+            <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="soundIdHelp" />
+        </div>
+        <div class="flex items-center">
+            <wwEditorInputRow
+                required
+                :model-value="metadata"
+                type="object"
+                label="Metadata"
+                bindable
+                small
+                @update:modelValue="setMetadata"
+            />
+            <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="soundIdHelp" />
+        </div>
     </div>
 </template>
 
@@ -48,6 +54,8 @@ export default {
     data() {
         return {
             soundIdHelp: `The sound ID need to be unique for each loaded sound.`,
+            soundOptionsHelp: `The available options for the sound instance: <a href="https://github.com/goldfire/howler.js?tab=readme-ov-file#options" target="_blank">Sound documentation</a>`,
+            soundMediaHelp: `A title, an artist, an album and a cover as an array: <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaMetadata" target="_blank">MediaMetadata documentation</a>`,
         };
     },
     setup(props) {
