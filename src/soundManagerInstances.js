@@ -61,12 +61,14 @@ function createSoundManager(pluginId) {
         delete sounds.value[id];
     };
 
-    const playSound = (id, playOptions) => {
+    const playSound = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
 
         if (sound && soundInfo) {
-            sound.play(playOptions);
+            if (soundInfo.isPlaying) return;
+
+            sound.play(id);
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
@@ -92,7 +94,7 @@ function createSoundManager(pluginId) {
     const pauseSound = id => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.pause();
+            sound.pause(id);
             clearTimeInterval(id);
         }
     };
@@ -100,7 +102,7 @@ function createSoundManager(pluginId) {
     const seekTo = (id, time) => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.seek(time);
+            sound.seek(time, id);
             updateSoundProperties(id);
         }
     };
@@ -116,7 +118,7 @@ function createSoundManager(pluginId) {
     const muteSound = (id, mute) => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.mute(mute);
+            sound.mute(mute, id);
         }
     };
 
@@ -124,28 +126,28 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
 
         if (sound) {
-            sound.volume(volume);
+            sound.volume(volume, id);
         }
     };
 
     const fadeSound = (id, from, to, duration) => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.fade(from, to, duration);
+            sound.fade(from, to, duration, id);
         }
     };
 
     const setRate = (id, rate) => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.rate(rate);
+            sound.rate(rate, id);
         }
     };
 
     const setLoop = (id, loop) => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.loop(loop);
+            sound.loop(loop, id);
         }
     };
 

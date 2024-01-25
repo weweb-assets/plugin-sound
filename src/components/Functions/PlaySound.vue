@@ -9,16 +9,6 @@
             bindable
             @update:modelValue="setid"
         />
-        <wwEditorInputRow
-            required
-            :model-value="options"
-            type="object"
-            label="Options"
-            placeholder="Enter play options"
-            bindable
-            small
-            @update:modelValue="setOptions"
-        />
     </div>
 </template>
 
@@ -51,16 +41,10 @@ export default {
         id() {
             return this.args.id;
         },
-        options() {
-            return this.args.options;
-        },
     },
     methods: {
         setid(id) {
             this.$emit('update:args', { ...this.args, id });
-        },
-        setOptions(options) {
-            this.$emit('update:args', { ...this.args, options });
         },
     },
 };
