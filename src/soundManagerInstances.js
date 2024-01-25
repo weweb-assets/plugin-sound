@@ -103,8 +103,8 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
 
         if (sound) {
-            console.log('seeking to', time, Number(time));
-            sound.seek(Number(time));
+            console.log('seeking to', time, parseInt(time));
+            sound.seek(parseInt(time));
             updateSoundProperties(id);
         }
     };
@@ -128,21 +128,21 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
 
         if (sound) {
-            sound.volume(Number(volume));
+            sound.volume(parseInt(volume));
         }
     };
 
     const fadeSound = (id, from, to, duration) => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.fade(Number(from), Number(to), Number(duration));
+            sound.fade(parseInt(from), parseInt(to), parseInt(duration));
         }
     };
 
     const setRate = (id, rate) => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.rate(Number(rate));
+            sound.rate(parseInt(rate));
         }
     };
 
