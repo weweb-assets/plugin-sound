@@ -8,7 +8,7 @@
             bindable
             @update:modelValue="setId"
         />
-        <wwEditorFormRow label="Playback Rate">
+        <wwEditorFormRow>
             <div class="flex items-center">
                 <wwEditorInputRow
                     label="Playback Rate"
