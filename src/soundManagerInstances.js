@@ -103,6 +103,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
 
         if (sound) {
+            console.log('seeking to', time, Number(time));
             sound.seek(Number(time));
             updateSoundProperties(id);
         }
