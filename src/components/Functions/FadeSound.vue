@@ -25,9 +25,9 @@
                 <wwEditorInputRow
                     label="To Volume"
                     type="number"
-                    :model-value="fromVolume"
+                    :model-value="toVolume"
                     bindable
-                    @update:modelValue="setFromVolume"
+                    @update:modelValue="setToVolume"
                 />
                 <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="toFade" />
             </div>
