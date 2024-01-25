@@ -68,7 +68,7 @@ function createSoundManager(pluginId) {
         if (sound && soundInfo) {
             if (soundInfo.isPlaying) return;
 
-            sound.play(id);
+            sound.play();
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
@@ -94,7 +94,7 @@ function createSoundManager(pluginId) {
     const pauseSound = id => {
         const sound = soundInstances[id];
         if (sound) {
-            sound.pause(id);
+            sound.pause();
             clearTimeInterval(id);
         }
     };
