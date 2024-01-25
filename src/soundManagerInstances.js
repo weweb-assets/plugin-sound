@@ -107,7 +107,7 @@ function createSoundManager(pluginId) {
             const wasPlaying = soundInfo.isPlaying;
 
             sound.pause();
-            sound.seek(time);
+            sound.seek(50);
 
             if (wasPlaying) sound.play();
 
