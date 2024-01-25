@@ -56,6 +56,7 @@ function createSoundManager(pluginId) {
             throw new Error(`Sound not found: ${id}`);
         }
 
+        stopSound(id);
         soundInstances[id].unload();
         delete soundInstances[id];
         delete sounds.value[id];
