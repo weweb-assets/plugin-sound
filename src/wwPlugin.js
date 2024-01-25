@@ -27,8 +27,8 @@ export default {
         await this.soundManager.stopSound(id);
     },
 
-    async seekTo({ id, position }) {
-        await this.soundManager.seekTo(id, position);
+    async seekTo({ id, time }) {
+        await this.soundManager.seekTo(id, time);
     },
 
     async muteSound({ id, mute }) {
