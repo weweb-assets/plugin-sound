@@ -15,23 +15,64 @@
         </wwEditorFormRow>
         <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
         <wwEditorInputRow
-            required
-            :model-value="options"
-            type="object"
             label="Options"
+            type="array"
+            :model-value="options"
             bindable
-            small
             @update:modelValue="setOptions"
-        />
+            @add-item="setOptions([...options, {}])"
+        >
+            <template #default="{ item, setItem }">
+                <wwEditorInputRow
+                    type="query"
+                    :model-value="item.key"
+                    label="
+                    Key"
+                    placeholder="Option key"
+                    bindable
+                    small
+                    @update:modelValue="setItem({ ...item, key: $event })"
+                />
+                <wwEditorInputRow
+                    type="query"
+                    :model-value="item.value"
+                    label="Value"
+                    placeholder="Value"
+                    bindable
+                    small
+                    @update:modelValue="setItem({ ...item, value: $event })"
+                />
+            </template>
+        </wwEditorInputRow>
         <wwEditorInputRow
-            required
-            :model-value="metadata"
-            type="object"
             label="Metadata"
+            type="array"
+            :model-value="metadata"
             bindable
-            small
             @update:modelValue="setMetadata"
-        />
+            @add-item="setMetadata([...metadata, {}])"
+        >
+            <template #default="{ item, setItem }">
+                <wwEditorInputRow
+                    type="query"
+                    :model-value="item.key"
+                    label="Key"
+                    placeholder="Metadata key"
+                    bindable
+                    small
+                    @update:modelValue="setItem({ ...item, key: $event })"
+                />
+                <wwEditorInputRow
+                    type="query"
+                    :model-value="item.value"
+                    label="Value"
+                    placeholder="Value"
+                    bindable
+                    small
+                    @update:modelValue="setItem({ ...item, value: $event })"
+                />
+            </template>
+        </wwEditorInputRow>
     </div>
 </template>
 
