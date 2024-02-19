@@ -29,8 +29,6 @@ function createSoundManager(pluginId) {
             return accumulator;
         }, {});
 
-        console.log(options, metadata, formatedOptions, formatedMetadata);
-
         return new Promise((resolve, reject) => {
             try {
                 const soundInstance = new Howl({

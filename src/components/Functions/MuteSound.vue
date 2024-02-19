@@ -7,6 +7,13 @@
         bindable
         @update:modelValue="setId"
     />
+    <div class="content-primary p-2 mb-4 border-stale-100 rounded-02">
+        <span class="label-md mb-2 text-stale-600">Be careful</span>
+        <p class="body-sm">
+            Make sure you properly load your sound using the "Load Sound" action before using it in any other action of
+            this plugin.
+        </p>
+    </div>
     <wwEditorInputRow label="Mute" type="onoff" :model-value="mute" bindable @update:modelValue="setMute" />
 </template>
 

@@ -20,7 +20,6 @@ export default {
             getIsValid({ id, src, idNotValid }) {
                 return !!id && !!src && !idNotValid;
             },
-            target: action => action.id,
             /* wwEditor:end */
         },
         {
