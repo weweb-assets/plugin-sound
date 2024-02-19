@@ -19,7 +19,18 @@ function createSoundManager(pluginId) {
             return Promise.reject(`Source is undefined for sound ID: ${id}`);
         }
 
-        console.log(options, metadata);
+
+        const formatedOptions = options.reduce((accumulator, currentValue) => {
+            accumulator[currentValue.key] = currentValue.value;
+            return accumulator;
+        }, {});
+
+        const formatedMetadata = metadata.reduce((accumulator, currentValue) => {
+            accumulator[currentValue.key] = currentValue.value;
+            return accumulator;
+        }
+
+        console.log(options, metadata, formatedOptions, formatedMetadata);
 
         return new Promise((resolve, reject) => {
             try {
@@ -28,7 +39,7 @@ function createSoundManager(pluginId) {
                     html5: true,
                     preload: true,
                     ...options,
-                    onload: () => setupSoundInstance(id, soundInstance, options, metadata, resolve),
+                    onload: () => setupSoundInstance(id, soundInstance, formatedOptions, formatedMetadata, resolve),
                     onloaderror: (id, error) => reject(error),
                     onplay: () => handleSoundPlay(id),
                     onpause: () => clearTimeInterval(id),

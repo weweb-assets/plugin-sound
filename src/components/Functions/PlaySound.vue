@@ -8,8 +8,15 @@
         bindable
         @update:modelValue="setid"
     />
-    <div class="content-danger p-3">
+    <div class="load-sound-warning p-3">
         <span class="label-md mb-2">Be careful</span>
+        <p class="body-sm">
+            Make sure you properly load your sound using the "Load Sound" action before using it in any other action of
+            this plugin.
+        </p>
+    </div>
+    <div class="content-primary p-2 border-stale-100 rounded-02">
+        <span class="label-md mb-2 text-stale-600">Be careful</span>
         <p class="body-sm">
             Make sure you properly load your sound using the "Load Sound" action before using it in any other action of
             this plugin.
