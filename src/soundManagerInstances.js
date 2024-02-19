@@ -219,6 +219,7 @@ function createSoundManager(pluginId) {
             logActionInformation('info', 'Sound loop correctly set', {
                 preview: `${id}: ${loop}`,
             });
+            /* wwEditor:end */
         }
     };
 
