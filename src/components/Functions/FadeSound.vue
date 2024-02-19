@@ -8,39 +8,21 @@
             bindable
             @update:modelValue="setId"
         />
-        <wwEditorFormRow>
+        <wwEditorFormRow label="From Volume">
             <div class="flex items-center">
-                <wwEditorInput
-                    label="From Volume"
-                    type="number"
-                    :model-value="fromVolume"
-                    bindable
-                    @update:modelValue="setFromVolume"
-                />
+                <wwEditorInput type="number" :model-value="fromVolume" bindable @update:modelValue="setFromVolume" />
                 <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="fromFade" />
             </div>
         </wwEditorFormRow>
-        <wwEditorFormRow>
+        <wwEditorFormRow label="To Volume">
             <div class="flex items-center">
-                <wwEditorInput
-                    label="To Volume"
-                    type="number"
-                    :model-value="toVolume"
-                    bindable
-                    @update:modelValue="setToVolume"
-                />
+                <wwEditorInput type="number" :model-value="toVolume" bindable @update:modelValue="setToVolume" />
                 <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="toFade" />
             </div>
         </wwEditorFormRow>
-        <wwEditorFormRow>
+        <wwEditorFormRow label="Duration">
             <div class="flex items-center">
-                <wwEditorInput
-                    label="Duration"
-                    type="number"
-                    :model-value="duration"
-                    bindable
-                    @update:modelValue="setDuration"
-                />
+                <wwEditorInput type="number" :model-value="duration" bindable @update:modelValue="setDuration" />
                 <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="durationFade" />
             </div>
         </wwEditorFormRow>
