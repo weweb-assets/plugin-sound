@@ -21,6 +21,7 @@ export default {
                 return !!id && !!src && !idNotValid;
             },
             /* wwEditor:end */
+            target: ({ id }) => id,
         },
         {
             name: 'Unload sound',
