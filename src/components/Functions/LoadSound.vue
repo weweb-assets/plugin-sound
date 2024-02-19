@@ -2,7 +2,6 @@
     <wwEditorFormRow label="Sound ID">
         <div class="flex items-center">
             <wwEditorInput
-                label="Sound ID"
                 placeholder="Enter an unique ID for the sound"
                 type="query"
                 :model-value="id"

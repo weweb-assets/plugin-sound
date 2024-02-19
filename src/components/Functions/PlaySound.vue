@@ -1,14 +1,19 @@
 <template>
-    <div>
-        <wwEditorInputRow
-            label="Sound"
-            type="select"
-            :model-value="id"
-            placeholder="Select a sound"
-            :options="soundInstancesOptions"
-            bindable
-            @update:modelValue="setid"
-        />
+    <wwEditorInputRow
+        label="Sound"
+        type="select"
+        :model-value="id"
+        placeholder="Select a sound"
+        :options="soundInstancesOptions"
+        bindable
+        @update:modelValue="setid"
+    />
+    <div class="content-danger p-3">
+        <span class="label-md mb-2">Be careful</span>
+        <p class="body-sm">
+            Make sure you properly load your sound using the "Load Sound" action before using it in any other action of
+            this plugin.
+        </p>
     </div>
 </template>
 

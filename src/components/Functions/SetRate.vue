@@ -1,26 +1,18 @@
 <template>
-    <div>
-        <wwEditorInputRow
-            label="Sound ID"
-            type="select"
-            :model-value="id"
-            :options="soundOptions"
-            bindable
-            @update:modelValue="setId"
-        />
-        <wwEditorFormRow>
-            <div class="flex items-center">
-                <wwEditorInputRow
-                    label="Playback Rate"
-                    type="number"
-                    :model-value="rate"
-                    bindable
-                    @update:modelValue="setRate"
-                />
-                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="playRateHelp" />
-            </div>
-        </wwEditorFormRow>
-    </div>
+    <wwEditorInputRow
+        label="Sound ID"
+        type="select"
+        :model-value="id"
+        :options="soundOptions"
+        bindable
+        @update:modelValue="setId"
+    />
+    <wwEditorFormRow label="Playback Rate">
+        <div class="flex items-center">
+            <wwEditorInput type="number" :model-value="rate" bindable @update:modelValue="setRate" />
+            <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="playRateHelp" />
+        </div>
+    </wwEditorFormRow>
 </template>
 
 <script>

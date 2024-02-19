@@ -1,15 +1,13 @@
 <template>
-    <div>
-        <wwEditorInputRow
-            label="Sound ID"
-            type="select"
-            :model-value="id"
-            :options="soundOptions"
-            bindable
-            @update:modelValue="setId"
-        />
-        <wwEditorInputRow label="Loop" type="onoff" :model-value="loop" bindable @update:modelValue="setLoop" />
-    </div>
+    <wwEditorInputRow
+        label="Sound ID"
+        type="select"
+        :model-value="id"
+        :options="soundOptions"
+        bindable
+        @update:modelValue="setId"
+    />
+    <wwEditorInputRow label="Loop" type="onoff" :model-value="loop" bindable @update:modelValue="setLoop" />
 </template>
 
 <script>

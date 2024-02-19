@@ -1,15 +1,13 @@
 <template>
-    <div>
-        <wwEditorInputRow
-            label="Sound ID"
-            type="select"
-            :model-value="id"
-            :options="soundOptions"
-            bindable
-            @update:modelValue="setId"
-        />
-        <wwEditorInputRow label="Mute" type="onoff" :model-value="mute" bindable @update:modelValue="setMute" />
-    </div>
+    <wwEditorInputRow
+        label="Sound ID"
+        type="select"
+        :model-value="id"
+        :options="soundOptions"
+        bindable
+        @update:modelValue="setId"
+    />
+    <wwEditorInputRow label="Mute" type="onoff" :model-value="mute" bindable @update:modelValue="setMute" />
 </template>
 
 <script>

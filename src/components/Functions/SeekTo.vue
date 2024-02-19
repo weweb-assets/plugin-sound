@@ -1,21 +1,19 @@
 <template>
-    <div>
-        <wwEditorInputRow
-            label="Sound ID"
-            type="select"
-            :model-value="id"
-            :options="soundOptions"
-            bindable
-            @update:modelValue="setId"
-        />
-        <wwEditorInputRow
-            label="Seek Time (seconds)"
-            type="number"
-            :model-value="time"
-            bindable
-            @update:modelValue="setTime"
-        />
-    </div>
+    <wwEditorInputRow
+        label="Sound ID"
+        type="select"
+        :model-value="id"
+        :options="soundOptions"
+        bindable
+        @update:modelValue="setId"
+    />
+    <wwEditorInputRow
+        label="Seek Time (seconds)"
+        type="number"
+        :model-value="time"
+        bindable
+        @update:modelValue="setTime"
+    />
 </template>
 
 <script>
