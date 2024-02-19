@@ -1,78 +1,76 @@
 <template>
-    <div>
-        <wwEditorFormRow label="Sound ID">
-            <div class="flex items-center">
-                <wwEditorInput
-                    label="Sound ID"
-                    placeholder="Enter an unique ID for the sound"
-                    type="query"
-                    :model-value="id"
-                    @update:modelValue="setid"
-                    bindable
-                />
-                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="soundIdHelp" />
-            </div>
-        </wwEditorFormRow>
-        <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
-        <wwEditorInputRow
-            label="Options"
-            type="array"
-            :model-value="options"
-            bindable
-            @update:modelValue="setOptions"
-            @add-item="setOptions([...options, {}])"
-        >
-            <template #default="{ item, setItem }">
-                <wwEditorInputRow
-                    type="query"
-                    :model-value="item.key"
-                    label="Key"
-                    placeholder="Option key"
-                    bindable
-                    small
-                    @update:modelValue="setItem({ ...item, key: $event })"
-                />
-                <wwEditorInputRow
-                    type="query"
-                    :model-value="item.value"
-                    label="Value"
-                    placeholder="Value"
-                    bindable
-                    small
-                    @update:modelValue="setItem({ ...item, value: $event })"
-                />
-            </template>
-        </wwEditorInputRow>
-        <wwEditorInputRow
-            label="Metadata"
-            type="array"
-            :model-value="metadata"
-            bindable
-            @update:modelValue="setMetadata"
-            @add-item="setMetadata([...metadata, {}])"
-        >
-            <template #default="{ item, setItem }">
-                <wwEditorInputRow
-                    type="query"
-                    :model-value="item.key"
-                    label="Key"
-                    placeholder="Metadata key"
-                    bindable
-                    small
-                    @update:modelValue="setItem({ ...item, key: $event })"
-                />
-                <wwEditorInputRow
-                    type="query"
-                    :model-value="item.value"
-                    label="Value"
-                    placeholder="Value"
-                    bindable
-                    small
-                    @update:modelValue="setItem({ ...item, value: $event })"
-                />
-            </template>
-        </wwEditorInputRow>
-    </div>
+    <wwEditorFormRow label="Sound ID">
+        <div class="flex items-center">
+            <wwEditorInput
+                label="Sound ID"
+                placeholder="Enter an unique ID for the sound"
+                type="query"
+                :model-value="id"
+                @update:modelValue="setid"
+                bindable
+            />
+            <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="soundIdHelp" />
+        </div>
+    </wwEditorFormRow>
+    <wwEditorInputRow label="Source" type="query" :model-value="src" bindable @update:modelValue="setsrc" />
+    <wwEditorInputRow
+        label="Options"
+        type="array"
+        :model-value="options"
+        bindable
+        @update:modelValue="setOptions"
+        @add-item="setOptions([...options, {}])"
+    >
+        <template #default="{ item, setItem }">
+            <wwEditorInputRow
+                type="query"
+                :model-value="item.key"
+                label="Key"
+                placeholder="Option key"
+                bindable
+                small
+                @update:modelValue="setItem({ ...item, key: $event })"
+            />
+            <wwEditorInputRow
+                type="query"
+                :model-value="item.value"
+                label="Value"
+                placeholder="Value"
+                bindable
+                small
+                @update:modelValue="setItem({ ...item, value: $event })"
+            />
+        </template>
+    </wwEditorInputRow>
+    <wwEditorInputRow
+        label="Metadata"
+        type="array"
+        :model-value="metadata"
+        bindable
+        @update:modelValue="setMetadata"
+        @add-item="setMetadata([...metadata, {}])"
+    >
+        <template #default="{ item, setItem }">
+            <wwEditorInputRow
+                type="query"
+                :model-value="item.key"
+                label="Key"
+                placeholder="Metadata key"
+                bindable
+                small
+                @update:modelValue="setItem({ ...item, key: $event })"
+            />
+            <wwEditorInputRow
+                type="query"
+                :model-value="item.value"
+                label="Value"
+                placeholder="Value"
+                bindable
+                small
+                @update:modelValue="setItem({ ...item, value: $event })"
+            />
+        </template>
+    </wwEditorInputRow>
 </template>
 
 <script>
