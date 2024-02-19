@@ -26,8 +26,7 @@
                 <wwEditorInputRow
                     type="query"
                     :model-value="item.key"
-                    label="
-                    Key"
+                    label="Key"
                     placeholder="Option key"
                     bindable
                     small
@@ -112,10 +111,10 @@ export default {
             return this.args.src;
         },
         options() {
-            return this.args.options;
+            return this.args.options || [];
         },
         metadata() {
-            return this.args.metadata;
+            return this.args.metadata || [];
         },
     },
     methods: {
