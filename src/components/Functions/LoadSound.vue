@@ -130,9 +130,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-.error {
-    color: var(--ww-color-red-500);
-}
-</style>
