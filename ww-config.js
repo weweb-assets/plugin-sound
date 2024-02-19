@@ -20,8 +20,8 @@ export default {
             getIsValid({ id, src, idNotValid }) {
                 return !!id && !!src && !idNotValid;
             },
+            target: ({ id, src }) => `${id}: ${src}`,
             /* wwEditor:end */
-            target: ({ id }) => id,
         },
         {
             name: 'Unload sound',
@@ -32,6 +32,7 @@ export default {
             getIsValid({ id }) {
                 return !!id;
             },
+            target: ({ id }) => id,
             /* wwEditor:end */
         },
         {
@@ -43,6 +44,7 @@ export default {
             getIsValid({ id }) {
                 return !!id;
             },
+            target: ({ id }) => id,
             /* wwEditor:end */
         },
         {
@@ -54,6 +56,7 @@ export default {
             getIsValid({ id }) {
                 return !!id;
             },
+            target: ({ id }) => id,
             /* wwEditor:end */
         },
         {
@@ -65,6 +68,7 @@ export default {
             getIsValid({ id }) {
                 return !!id;
             },
+            target: ({ id }) => id,
             /* wwEditor:end */
         },
         {
@@ -76,6 +80,7 @@ export default {
             getIsValid({ id, time }) {
                 return !!id && time != null;
             },
+            target: ({ id, time }) => `${id}: Seek to ${time}`,
             /* wwEditor:end */
         },
         {
@@ -87,6 +92,7 @@ export default {
             getIsValid({ id, volume }) {
                 return !!id && volume != null;
             },
+            target: ({ id, volume }) => `${id}: Set volume to ${volume}`,
             /* wwEditor:end */
         },
         {
@@ -98,6 +104,7 @@ export default {
             getIsValid({ id }) {
                 return !!id;
             },
+            target: ({ id }) => id,
             /* wwEditor:end */
         },
         {
@@ -109,6 +116,8 @@ export default {
             getIsValid({ id, fromVolume, toVolume, duration }) {
                 return !!id && fromVolume != null && toVolume != null && duration != null;
             },
+            target: ({ id, fromVolume, toVolume, duration }) =>
+                `${id}: Fade from ${fromVolume} to ${toVolume} in ${duration} seconds`,
             /* wwEditor:end */
         },
         {
@@ -120,6 +129,7 @@ export default {
             getIsValid({ id, rate }) {
                 return !!id && rate != null;
             },
+            target: ({ id, rate }) => `${id}: Set rate to ${rate}`,
             /* wwEditor:end */
         },
         {
@@ -131,6 +141,7 @@ export default {
             getIsValid({ id, loop }) {
                 return !!id && loop != null;
             },
+            target: ({ id, loop }) => `${id}: Set loop to ${loop}`,
             /* wwEditor:end */
         },
     ],
