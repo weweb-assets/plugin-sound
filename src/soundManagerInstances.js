@@ -44,6 +44,12 @@ function createSoundManager(pluginId) {
                     onend: () => clearTimeInterval(id),
                     onseek: () => updateSoundProperties(id),
                 });
+
+                /* wwEditor:start */
+                logActionInformation('info', 'Sound correctly loaded', {
+                    preview: `${id}: ${src}`,
+                });
+                /* wwEditor:end */
             } catch (error) {
                 throw new Error(`Error loading sound: ${error}`);
                 reject(error);
@@ -70,6 +76,12 @@ function createSoundManager(pluginId) {
         soundInstances[id].unload();
         delete soundInstances[id];
         delete sounds.value[id];
+
+        /* wwEditor:start */
+        logActionInformation('info', 'Sound correctly unloaded', {
+            preview: id,
+        });
+        /* wwEditor:end */
     };
 
     const playSound = id => {
@@ -80,6 +92,12 @@ function createSoundManager(pluginId) {
             if (soundInfo.isPlaying) return;
 
             sound.play();
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound correctly played', {
+                preview: id,
+            });
+            /* wwEditor:end */
         } else {
             throw new Error(`Sound not found: ${id}`);
         }
@@ -107,6 +125,12 @@ function createSoundManager(pluginId) {
         if (sound) {
             sound.pause();
             clearTimeInterval(id);
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound correctly paused', {
+                preview: id,
+            });
+            /* wwEditor:end */
         }
     };
 
@@ -116,6 +140,12 @@ function createSoundManager(pluginId) {
         if (sound) {
             sound.seek(Number(time));
             updateSoundProperties(id);
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound correctly seeked', {
+                preview: `${id}: ${time}`,
+            });
+            /* wwEditor:end */
         }
     };
 
@@ -124,6 +154,12 @@ function createSoundManager(pluginId) {
         if (sound) {
             sound.stop();
             clearTimeInterval(id);
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound correctly stopped', {
+                preview: id,
+            });
+            /* wwEditor:end */
         }
     };
 
@@ -131,6 +167,12 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.mute(mute);
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound correctly muted', {
+                preview: `${id}: ${mute}`,
+            });
+            /* wwEditor:end */
         }
     };
 
@@ -139,6 +181,12 @@ function createSoundManager(pluginId) {
 
         if (sound) {
             sound.volume(Number(volume));
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound volume correctly set', {
+                preview: `${id}: ${volume}`,
+            });
+            /* wwEditor:end */
         }
     };
 
@@ -146,6 +194,12 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.fade(Number(from), Number(to), Number(duration));
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound correctly faded', {
+                preview: `${id}: ${from} to ${to} in ${duration}`,
+            });
+            /* wwEditor:end */
         }
     };
 
@@ -160,6 +214,11 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.loop(loop);
+
+            /* wwEditor:start */
+            logActionInformation('info', 'Sound loop correctly set', {
+                preview: `${id}: ${loop}`,
+            });
         }
     };
 
