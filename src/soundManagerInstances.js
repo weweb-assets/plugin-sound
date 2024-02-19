@@ -19,12 +19,12 @@ function createSoundManager(pluginId) {
             return Promise.reject(`Source is undefined for sound ID: ${id}`);
         }
 
-        const formatedOptions = options.reduce((accumulator, currentValue) => {
+        const formatedOptions = (options || []).reduce((accumulator, currentValue) => {
             accumulator[currentValue.key] = currentValue.value;
             return accumulator;
         }, {});
 
-        const formatedMetadata = metadata.reduce((accumulator, currentValue) => {
+        const formatedMetadata = (metadata || []).reduce((accumulator, currentValue) => {
             accumulator[currentValue.key] = currentValue.value;
             return accumulator;
         }, {});
