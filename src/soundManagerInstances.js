@@ -3,6 +3,13 @@ import { Howl } from 'howler';
 
 const instances = {};
 
+function logActionInformation(type, log, meta = {}) {
+    wwLib.logStore.log(type, log, {
+        type: 'action',
+        ...meta,
+    });
+}
+
 export function getSoundManagerInstance(pluginId) {
     if (!instances[pluginId]) {
         instances[pluginId] = createSoundManager(pluginId);
