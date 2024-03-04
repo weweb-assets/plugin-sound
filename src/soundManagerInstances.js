@@ -124,6 +124,8 @@ function createSoundManager(pluginId) {
             navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
             navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
             navigator.mediaSession.setActionHandler('previoustrack', () => seekTo(id, 0));
+
+            console.log('Media Session API is available', navigator.mediaSession.metadata);
         }
     };
 
@@ -204,7 +206,7 @@ function createSoundManager(pluginId) {
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound correctly faded', {
-                preview: `${id}: ${from} to ${to} in ${duration}`,
+                preview: `${id}: ${from} to ${to} in ${duration}ms`,
             });
             /* wwEditor:end */
         }
