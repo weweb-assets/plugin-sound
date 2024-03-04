@@ -52,8 +52,6 @@ function createSoundManager(pluginId) {
                     onseek: () => updateSoundProperties(id),
                 });
 
-                setupMediaSession(id, soundInfo.metadata);
-
                 /* wwEditor:start */
                 logActionInformation('info', 'Sound correctly loaded', {
                     preview: `${id}: ${src}`,
