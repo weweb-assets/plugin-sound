@@ -52,6 +52,8 @@ function createSoundManager(pluginId) {
                     onseek: () => updateSoundProperties(id),
                 });
 
+                setupMediaSession(id, soundInfo.metadata);
+
                 /* wwEditor:start */
                 logActionInformation('info', 'Sound correctly loaded', {
                     preview: `${id}: ${src}`,
@@ -67,11 +69,11 @@ function createSoundManager(pluginId) {
     const handleSoundPlay = id => {
         startInterval(id);
 
-        const soundInfo = sounds.value[id];
+        // const soundInfo = sounds.value[id];
 
-        if (id && soundInfo) {
-            setupMediaSession(id, soundInfo.metadata);
-        }
+        // if (id && soundInfo) {
+        //     setupMediaSession(id, soundInfo.metadata);
+        // }
     };
 
     const unloadSound = id => {
@@ -236,6 +238,7 @@ function createSoundManager(pluginId) {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, options, metadata);
         updateSoundProperties(id);
+        setupMediaSession(id, metadata);
         resolve(id);
     };
 
