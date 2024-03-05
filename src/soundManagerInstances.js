@@ -10,23 +10,6 @@ function logActionInformation(type, log, meta = {}) {
     });
 }
 
-function createHiddenAudio(soundId, soundInstances, src) {
-    const audioElem = wwLib.getFrontDocument().createElement('audio');
-    audioElem.setAttribute('data-sound-id', soundId);
-    audioElem.src = src;
-    audioElem.style.display = 'none';
-    wwLib.getFrontDocument().body.appendChild(audioElem);
-
-    audioElem.onplay = () => {
-        soundInstances[soundId].play();
-    };
-    audioElem.onpause = () => {
-        soundInstances[soundId].pause();
-    };
-
-    return audioElem;
-}
-
 export function getSoundManagerInstance(pluginId) {
     if (!instances[pluginId]) {
         instances[pluginId] = createSoundManager(pluginId);
@@ -69,8 +52,6 @@ function createSoundManager(pluginId) {
                     onseek: () => updateSoundProperties(id),
                 });
 
-                createHiddenAudio(id, soundInstances, src);
-
                 /* wwEditor:start */
                 logActionInformation('info', 'Sound correctly loaded', {
                     preview: `${id}: ${src}`,
@@ -103,13 +84,10 @@ function createSoundManager(pluginId) {
     const playSound = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
-        const audioElem = wwLib.getFrontDocument().querySelector(`audio[data-sound-id="${id}"]`);
 
         if (sound && soundInfo) {
             if (soundInfo.isPlaying) return;
 
-            audioElem.volume = 0;
-            audioElem.play();
             sound.play();
 
             /* wwEditor:start */
@@ -122,6 +100,8 @@ function createSoundManager(pluginId) {
         }
     };
 
+    // Waiting for MediaSession API to be available on web audio API or workaround
+    /*
     const setupMediaSession = (id, metadata) => {
         if ('mediaSession' in navigator) {
             const { title, artist, album, artwork } = metadata;
@@ -140,13 +120,12 @@ function createSoundManager(pluginId) {
             console.log('Media Session API is available', navigator.mediaSession.metadata);
         }
     };
+     */
 
     const pauseSound = id => {
         const sound = soundInstances[id];
-        const audioElem = wwLib.getFrontDocument().querySelector(`audio[data-sound-id="${id}"]`);
 
         if (sound) {
-            audioElem.pause();
             sound.pause();
             clearTimeInterval(id);
 
@@ -251,7 +230,7 @@ function createSoundManager(pluginId) {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, options, metadata);
         updateSoundProperties(id);
-        setupMediaSession(id, metadata);
+        // setupMediaSession(id, metadata);
         resolve(id);
     };
 
