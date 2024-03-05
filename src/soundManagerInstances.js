@@ -10,6 +10,23 @@ function logActionInformation(type, log, meta = {}) {
     });
 }
 
+function createHiddenAudio(soundId, soundInstances, src) {
+    const audioElem = wwLib.getFrontDocument().createElement('audio');
+    audioElem.setAttribute('data-sound-id', soundId);
+    audioElem.src = src;
+    audioElem.style.display = 'none';
+    wwLib.getFrontDocument().body.appendChild(audioElem);
+
+    audioElem.onplay = () => {
+        soundInstances[soundId].play();
+    };
+    audioElem.onpause = () => {
+        soundInstances[soundId].pause();
+    };
+
+    return audioElem;
+}
+
 export function getSoundManagerInstance(pluginId) {
     if (!instances[pluginId]) {
         instances[pluginId] = createSoundManager(pluginId);
@@ -45,12 +62,14 @@ function createSoundManager(pluginId) {
                     ...options,
                     onload: () => setupSoundInstance(id, soundInstance, formatedOptions, formatedMetadata, resolve),
                     onloaderror: (id, error) => reject(error),
-                    onplay: () => handleSoundPlay(id),
+                    onplay: () => startInterval(id),
                     onpause: () => clearTimeInterval(id),
                     onstop: () => clearTimeInterval(id),
                     onend: () => clearTimeInterval(id),
                     onseek: () => updateSoundProperties(id),
                 });
+
+                createHiddenAudio(id, soundInstances, src);
 
                 /* wwEditor:start */
                 logActionInformation('info', 'Sound correctly loaded', {
@@ -62,16 +81,6 @@ function createSoundManager(pluginId) {
                 reject(error);
             }
         });
-    };
-
-    const handleSoundPlay = id => {
-        startInterval(id);
-
-        // const soundInfo = sounds.value[id];
-
-        // if (id && soundInfo) {
-        //     setupMediaSession(id, soundInfo.metadata);
-        // }
     };
 
     const unloadSound = id => {
@@ -94,10 +103,13 @@ function createSoundManager(pluginId) {
     const playSound = id => {
         const sound = soundInstances[id];
         const soundInfo = sounds.value[id];
+        const audioElem = wwLib.getFrontDocument().querySelector(`audio[data-sound-id="${id}"]`);
 
         if (sound && soundInfo) {
             if (soundInfo.isPlaying) return;
 
+            audioElem.volume = 0;
+            audioElem.play();
             sound.play();
 
             /* wwEditor:start */
@@ -131,7 +143,10 @@ function createSoundManager(pluginId) {
 
     const pauseSound = id => {
         const sound = soundInstances[id];
+        const audioElem = wwLib.getFrontDocument().querySelector(`audio[data-sound-id="${id}"]`);
+
         if (sound) {
+            audioElem.pause();
             sound.pause();
             clearTimeInterval(id);
 
