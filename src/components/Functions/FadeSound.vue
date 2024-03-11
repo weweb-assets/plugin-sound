@@ -1,18 +1,41 @@
 <template>
-    <wwEditorInputRow
-        label="Sound ID"
-        type="select"
-        :model-value="id"
-        :options="soundOptions"
-        bindable
-        @update:modelValue="setId"
-    />
-    <div class="content-primary p-2 mb-4 border-stale-100 rounded-02">
-        <span class="label-md mb-2 text-stale-600">Be careful</span>
-        <p class="body-sm">
-            Make sure you properly load your sound using the "Load Sound" action before using it in any other action of
-            this plugin.
-        </p>
+    <div>
+        <wwEditorInputRow
+            label="Sound ID"
+            type="select"
+            :model-value="id"
+            :options="soundOptions"
+            bindable
+            @update:modelValue="setId"
+        />
+        <div class="content-primary p-2 mb-4 border-stale-100 rounded-02">
+            <span class="label-md mb-2 text-stale-600">Be careful</span>
+            <p class="body-sm">
+                Make sure you properly load your sound using the "Load Sound" action before using it in any other action
+                of this plugin.
+            </p>
+        </div>
+        <wwEditorFormRow label="From Volume">
+            <div class="flex items-center">
+                <wwEditorInput type="number" :model-value="fromVolume" bindable @update:modelValue="setFromVolume" />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="fromFade" />
+            </div>
+        </wwEditorFormRow>
+        <wwEditorFormRow label="To Volume">
+            <div class="flex items-center">
+                <wwEditorInput type="number" :model-value="toVolume" bindable @update:modelValue="setToVolume" />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="toFade" />
+            </div>
+        </wwEditorFormRow>
+        <wwEditorFormRow label="Duration">
+            <div class="flex items-center">
+                <wwEditorInput type="number" :model-value="duration" bindable @update:modelValue="setDuration" />
+                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="durationFade" />
+            </div>
+        </wwEditorFormRow>
+        <div class="content-primary p-2 m4-4 border-stale-100 rounded-02">
+            <p class="body-sm">Dynamic volume change is not authorized on mobile.</p>
+        </div>
     </div>
     <wwEditorFormRow label="From Volume">
         <div class="flex items-center">
@@ -32,6 +55,13 @@
             <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="durationFade" />
         </div>
     </wwEditorFormRow>
+    <div class="content-primary p-2 m4-4 border-stale-100 rounded-02">
+        <span class="label-md mb-2 text-stale-600">Mobile Limitation</span>
+        <p class="body-sm">
+            Please note that dynamic (through workflows) volume adjustment is unavailable on mobile devices due to
+            technical limitations beyond our control, in compliance with web standards.
+        </p>
+    </div>
 </template>
 
 <script>
