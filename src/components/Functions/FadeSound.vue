@@ -15,27 +15,6 @@
                 of this plugin.
             </p>
         </div>
-        <wwEditorFormRow label="From Volume">
-            <div class="flex items-center">
-                <wwEditorInput type="number" :model-value="fromVolume" bindable @update:modelValue="setFromVolume" />
-                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="fromFade" />
-            </div>
-        </wwEditorFormRow>
-        <wwEditorFormRow label="To Volume">
-            <div class="flex items-center">
-                <wwEditorInput type="number" :model-value="toVolume" bindable @update:modelValue="setToVolume" />
-                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="toFade" />
-            </div>
-        </wwEditorFormRow>
-        <wwEditorFormRow label="Duration">
-            <div class="flex items-center">
-                <wwEditorInput type="number" :model-value="duration" bindable @update:modelValue="setDuration" />
-                <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="durationFade" />
-            </div>
-        </wwEditorFormRow>
-        <div class="content-primary p-2 m4-4 border-stale-100 rounded-02">
-            <p class="body-sm">Dynamic volume change is not authorized on mobile.</p>
-        </div>
     </div>
     <wwEditorFormRow label="From Volume">
         <div class="flex items-center">
