@@ -42,7 +42,7 @@ function createSoundManager(pluginId) {
                     src: [src],
                     html5: true,
                     preload: true,
-                    ...options,
+                    ...formatedOptions,
                     onload: () => setupSoundInstance(id, soundInstance, formatedOptions, formatedMetadata, resolve),
                     onloaderror: (id, error) => reject(error),
                     onplay: () => startInterval(id),
