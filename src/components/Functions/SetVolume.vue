@@ -20,6 +20,13 @@
             <wwEditorQuestionMark tooltip-position="top-left" class="ml-2" :forcedContent="volumeHelp" />
         </div>
     </wwEditorFormRow>
+    <div class="content-primary p-2 m4-4 border-stale-100 rounded-02">
+        <span class="label-md mb-2 text-stale-600">Mobile Limitation</span>
+        <p class="body-sm">
+            Please note that dynamic (through workflows) volume adjustment is unavailable on mobile devices due to
+            technical limitations beyond our control, in compliance with web standards.
+        </p>
+    </div>
 </template>
 
 <script>

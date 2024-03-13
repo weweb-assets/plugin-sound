@@ -3,6 +3,13 @@ import { Howl } from 'howler';
 
 const instances = {};
 
+function logActionInformation(type, log, meta = {}) {
+    wwLib.logStore.log(type, log, {
+        type: 'action',
+        ...meta,
+    });
+}
+
 export function getSoundManagerInstance(pluginId) {
     if (!instances[pluginId]) {
         instances[pluginId] = createSoundManager(pluginId);
@@ -35,10 +42,10 @@ function createSoundManager(pluginId) {
                     src: [src],
                     html5: true,
                     preload: true,
-                    ...options,
+                    ...formatedOptions,
                     onload: () => setupSoundInstance(id, soundInstance, formatedOptions, formatedMetadata, resolve),
                     onloaderror: (id, error) => reject(error),
-                    onplay: () => handleSoundPlay(id),
+                    onplay: () => startInterval(id),
                     onpause: () => clearTimeInterval(id),
                     onstop: () => clearTimeInterval(id),
                     onend: () => clearTimeInterval(id),
@@ -55,16 +62,6 @@ function createSoundManager(pluginId) {
                 reject(error);
             }
         });
-    };
-
-    const handleSoundPlay = id => {
-        startInterval(id);
-
-        const soundInfo = sounds.value[id];
-
-        if (id && soundInfo) {
-            setupMediaSession(id, soundInfo.metadata);
-        }
     };
 
     const unloadSound = id => {
@@ -103,6 +100,8 @@ function createSoundManager(pluginId) {
         }
     };
 
+    // Waiting for MediaSession API to be available on web audio API or workaround
+    /*
     const setupMediaSession = (id, metadata) => {
         if ('mediaSession' in navigator) {
             const { title, artist, album, artwork } = metadata;
@@ -117,11 +116,15 @@ function createSoundManager(pluginId) {
             navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
             navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
             navigator.mediaSession.setActionHandler('previoustrack', () => seekTo(id, 0));
+
+            console.log('Media Session API is available', navigator.mediaSession.metadata);
         }
     };
+     */
 
     const pauseSound = id => {
         const sound = soundInstances[id];
+
         if (sound) {
             sound.pause();
             clearTimeInterval(id);
@@ -197,7 +200,7 @@ function createSoundManager(pluginId) {
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound correctly faded', {
-                preview: `${id}: ${from} to ${to} in ${duration}`,
+                preview: `${id}: ${from} to ${to} in ${duration}ms`,
             });
             /* wwEditor:end */
         }
@@ -227,6 +230,7 @@ function createSoundManager(pluginId) {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, options, metadata);
         updateSoundProperties(id);
+        // setupMediaSession(id, metadata);
         resolve(id);
     };
 
