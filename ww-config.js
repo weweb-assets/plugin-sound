@@ -1,4 +1,5 @@
 export default {
+    editor: {},
     variables: [{ name: 'sounds', value: 'sounds', type: 'object', defaultValue: null }],
     actions: [
         {
