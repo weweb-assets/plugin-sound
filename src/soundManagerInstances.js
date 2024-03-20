@@ -270,6 +270,26 @@ function createSoundManager(pluginId) {
         totalTime: sound.duration(),
         currentTime: sound.seek(),
         currentTimePercent: (sound.seek() / sound.duration()) * 100,
+        options: {
+            ...soundInfo.options,
+            volume: sound._volume,
+            autoplay: sound._autoplay,
+            duration: sound._duration,
+            loop: sound._loop,
+            muted: sound._muted,
+            playLock: sound._playLock,
+            pos: sound._pos,
+            pool: sound._pool,
+            preload: sound._preload,
+            html5: sound._html5,
+            rate: sound._rate,
+            src: sound._src,
+            state: sound._state,
+            stereo: sound._stereo,
+            webAudio: sound._webAudio,
+            format: sound._format,
+            sprite: sound._sprite,
+        },
     });
 
     const convertToRawSounds = newSounds =>
