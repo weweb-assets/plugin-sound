@@ -307,7 +307,6 @@ function createSoundManager(pluginId) {
         currentTimePercent: toRaw(sound.currentTimePercent),
         metadata: toRaw(sound.metadata),
         options: toRaw(sound.options),
-        instance: toRaw(sound.instance),
     });
 
     watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
