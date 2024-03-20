@@ -261,7 +261,6 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sounds.value[id] = assignSoundProperties(sounds.value[id], sound);
-            console.log('updateSoundProperties', sounds.value[id]);
         }
     };
 
@@ -289,6 +288,7 @@ function createSoundManager(pluginId) {
         currentTimePercent: toRaw(sound.currentTimePercent),
         metadata: toRaw(sound.metadata),
         options: toRaw(sound.options),
+        instance: toRaw(sound.instance),
     });
 
     watch(sounds, newSounds => wwLib.wwVariable.updateValue(`${pluginId}-sounds`, convertToRawSounds(newSounds)), {
