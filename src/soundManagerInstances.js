@@ -260,6 +260,7 @@ function createSoundManager(pluginId) {
     const updateSoundProperties = id => {
         const sound = soundInstances[id];
         if (sound) {
+            console.log('updateSoundProperties', sounds.value[id], sound);
             sounds.value[id] = assignSoundProperties(sounds.value[id], sound);
         }
     };
