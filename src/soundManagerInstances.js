@@ -170,6 +170,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.mute(mute);
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound correctly muted', {
@@ -184,6 +185,7 @@ function createSoundManager(pluginId) {
 
         if (sound) {
             sound.volume(Number(volume));
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound volume correctly set', {
@@ -197,6 +199,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.fade(Number(from), Number(to), Number(duration));
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound correctly faded', {
@@ -210,6 +213,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.rate(Number(rate));
+            updateSoundProperties(id);
         }
     };
 
@@ -217,6 +221,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.loop(loop);
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound loop correctly set', {
