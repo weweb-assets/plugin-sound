@@ -170,6 +170,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.mute(mute);
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound correctly muted', {
@@ -184,6 +185,7 @@ function createSoundManager(pluginId) {
 
         if (sound) {
             sound.volume(Number(volume));
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound volume correctly set', {
@@ -197,6 +199,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.fade(Number(from), Number(to), Number(duration));
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound correctly faded', {
@@ -210,6 +213,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.rate(Number(rate));
+            updateSoundProperties(id);
         }
     };
 
@@ -217,6 +221,7 @@ function createSoundManager(pluginId) {
         const sound = soundInstances[id];
         if (sound) {
             sound.loop(loop);
+            updateSoundProperties(id);
 
             /* wwEditor:start */
             logActionInformation('info', 'Sound loop correctly set', {
@@ -270,6 +275,26 @@ function createSoundManager(pluginId) {
         totalTime: sound.duration(),
         currentTime: sound.seek(),
         currentTimePercent: (sound.seek() / sound.duration()) * 100,
+        options: {
+            ...soundInfo.options,
+            volume: sound._volume,
+            autoplay: sound._autoplay,
+            duration: sound._duration,
+            loop: sound._loop,
+            muted: sound._muted,
+            playLock: sound._playLock,
+            pos: sound._pos,
+            pool: sound._pool,
+            preload: sound._preload,
+            html5: sound._html5,
+            rate: sound._rate,
+            src: sound._src,
+            state: sound._state,
+            stereo: sound._stereo,
+            webAudio: sound._webAudio,
+            format: sound._format,
+            sprite: sound._sprite,
+        },
     });
 
     const convertToRawSounds = newSounds =>
