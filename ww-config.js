@@ -1,5 +1,7 @@
 export default {
-    editor: {},
+    editor: {
+        designSystemId: '034f28c4-972a-4951-9abc-7a411412a8f2',
+    },
     variables: [{ name: 'sounds', value: 'sounds', type: 'object', defaultValue: null }],
     actions: [
         {
