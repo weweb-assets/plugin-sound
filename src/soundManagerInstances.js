@@ -100,8 +100,6 @@ function createSoundManager(pluginId) {
         }
     };
 
-    // Waiting for MediaSession API to be available on web audio API or workaround
-    /*
     const setupMediaSession = (id, metadata) => {
         if ('mediaSession' in navigator) {
             const { title, artist, album, artwork } = metadata;
@@ -116,11 +114,8 @@ function createSoundManager(pluginId) {
             navigator.mediaSession.setActionHandler('pause', () => pauseSound(id));
             navigator.mediaSession.setActionHandler('seekto', details => seekTo(id, details.seekTime));
             navigator.mediaSession.setActionHandler('previoustrack', () => seekTo(id, 0));
-
-            console.log('Media Session API is available', navigator.mediaSession.metadata);
         }
     };
-     */
 
     const pauseSound = id => {
         const sound = soundInstances[id];
@@ -235,7 +230,7 @@ function createSoundManager(pluginId) {
         soundInstances[id] = markRaw(soundInstance);
         sounds.value[id] = createSoundObject(id, soundInstance, options, metadata);
         updateSoundProperties(id);
-        // setupMediaSession(id, metadata);
+        setupMediaSession(id, metadata);
         resolve(id);
     };
 
