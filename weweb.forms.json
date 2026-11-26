@@ -1,0 +1,381 @@
+{
+    "schemaVersion": 1,
+    "designSystemId": "034f28c4-972a-4951-9abc-7a411412a8f2",
+    "variables": [
+        {
+            "name": "sounds",
+            "type": "object"
+        }
+    ],
+    "actions": [
+        {
+            "name": "Load sound",
+            "code": "loadSound",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "text",
+                        "bindable": true,
+                        "required": true,
+                        "placeholder": "Enter a unique sound ID",
+                        "help": {
+                            "text": "Use a unique ID for each loaded sound."
+                        }
+                    },
+                    {
+                        "key": "src",
+                        "label": "Source",
+                        "type": "text",
+                        "bindable": true,
+                        "required": true
+                    },
+                    {
+                        "key": "options",
+                        "label": "Options",
+                        "type": "list",
+                        "bindable": true,
+                        "item": {
+                            "type": "record",
+                            "fields": [
+                                {
+                                    "key": "key",
+                                    "label": "Key",
+                                    "type": "text",
+                                    "bindable": true,
+                                    "placeholder": "Option key"
+                                },
+                                {
+                                    "key": "value",
+                                    "label": "Value",
+                                    "type": "text",
+                                    "bindable": true,
+                                    "placeholder": "Value"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "metadata",
+                        "label": "Metadata",
+                        "type": "list",
+                        "bindable": true,
+                        "item": {
+                            "type": "record",
+                            "fields": [
+                                {
+                                    "key": "key",
+                                    "label": "Key",
+                                    "type": "text",
+                                    "bindable": true,
+                                    "placeholder": "Metadata key"
+                                },
+                                {
+                                    "key": "value",
+                                    "label": "Value",
+                                    "type": "text",
+                                    "bindable": true,
+                                    "placeholder": "Value"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Unload sound",
+            "code": "unloadSound",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Play sound",
+            "code": "playSound",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        },
+                        "placeholder": "Select a sound"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Pause sound",
+            "code": "pauseSound",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Stop sound",
+            "code": "stopSound",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Seek to time",
+            "code": "seekTo",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    },
+                    {
+                        "key": "time",
+                        "label": "Seek time (seconds)",
+                        "type": "number",
+                        "bindable": true,
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Set volume",
+            "code": "setVolume",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    },
+                    {
+                        "key": "volume",
+                        "label": "Volume",
+                        "type": "number",
+                        "bindable": true,
+                        "required": true,
+                        "help": {
+                            "text": "Choose a volume from 0 (silent) to 1 (full volume). Workflow volume changes are unavailable on mobile devices."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Mute sound",
+            "code": "muteSound",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    },
+                    {
+                        "key": "mute",
+                        "label": "Mute",
+                        "type": "boolean",
+                        "bindable": true
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Fade sound",
+            "code": "fadeSound",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    },
+                    {
+                        "key": "fromVolume",
+                        "label": "From volume",
+                        "type": "number",
+                        "bindable": true,
+                        "required": true,
+                        "help": {
+                            "text": "Starting volume, from 0 to 1."
+                        }
+                    },
+                    {
+                        "key": "toVolume",
+                        "label": "To volume",
+                        "type": "number",
+                        "bindable": true,
+                        "required": true,
+                        "help": {
+                            "text": "Ending volume, from 0 to 1. Workflow volume changes are unavailable on mobile devices."
+                        }
+                    },
+                    {
+                        "key": "duration",
+                        "label": "Duration",
+                        "type": "number",
+                        "bindable": true,
+                        "required": true,
+                        "help": {
+                            "text": "Duration of the fade in milliseconds."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Set playback rate",
+            "code": "setRate",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    },
+                    {
+                        "key": "rate",
+                        "label": "Playback rate",
+                        "type": "number",
+                        "bindable": true,
+                        "required": true,
+                        "help": {
+                            "text": "1 is normal speed, 0.5 is half speed, and 2 is double speed."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Set loop",
+            "code": "setLoop",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "note": "Load the sound with the Load sound action before using it here.",
+                "fields": [
+                    {
+                        "key": "id",
+                        "label": "Sound ID",
+                        "type": "choice",
+                        "bindable": true,
+                        "required": true,
+                        "choicesFrom": {
+                            "variable": "sounds",
+                            "member": "id"
+                        }
+                    },
+                    {
+                        "key": "loop",
+                        "label": "Loop",
+                        "type": "boolean",
+                        "bindable": true,
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ]
+}
